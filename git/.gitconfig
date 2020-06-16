@@ -1,0 +1,2 @@
+[include]
+	path = ~/.dotfiles/local/.gitconfig.local
