@@ -1,0 +1,6 @@
+alias ls='exa --group-directories-first'
+alias ll='exa -alF --git --group-directories-first'
+alias lt='exa -aT --level=2 ^.git'
+alias which='whence -p'
+alias rm='rm -i'
+alias mv='mv -i'
