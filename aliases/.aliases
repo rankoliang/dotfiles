@@ -1,4 +1,4 @@
-alias ls='exa --group-directories-first'
+alias ls='exa --group-directories-first -l'
 alias ll='exa -alF --git --group-directories-first'
 alias lt='exa -aT --level=2 ^.git'
 alias fd='fdfind'
