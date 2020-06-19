@@ -5,3 +5,5 @@ alias fd='fdfind'
 alias which='whence -p'
 alias rm='rm -i'
 alias mv='mv -i'
+# Opens fzf in preview mode in current directory
+alias fzfp="fdfind --type f --hidden --follow --exclude .git  | fzf --preview 'head -100 {}'"

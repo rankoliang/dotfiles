@@ -54,7 +54,7 @@ source $ZSH_PLUGINS/zsh-z/zsh-z.plugin.zsh
 # For autocomplete on the z plugin
 autoload -U compinit && compinit
 # Nice tab complete menu
-# zstyle ':completion:*' menu select
+zstyle ':completion:*' menu select
 
 # History from Oh My ZSH (https://github.com/ohmyzsh/ohmyzsh/blob/master/lib/history.zsh)
 HISTFILE=$ZSH_CONFIG/.zsh_history
