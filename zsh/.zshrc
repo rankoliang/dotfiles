@@ -5,7 +5,6 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
-
 DOTFILES=$HOME/.dotfiles
 ZSH_PLUGINS=$DOTFILES/zsh/plugins
 [ -d $ZSH_PLUGINS ] || mkdir $ZSH_PLUGINS
@@ -55,7 +54,7 @@ source $ZSH_PLUGINS/zsh-z/zsh-z.plugin.zsh
 # For autocomplete on the z plugin
 autoload -U compinit && compinit
 # Nice tab complete menu
-zstyle ':completion:*' menu select
+# zstyle ':completion:*' menu select
 
 # History from Oh My ZSH (https://github.com/ohmyzsh/ohmyzsh/blob/master/lib/history.zsh)
 HISTFILE=$ZSH_CONFIG/.zsh_history
@@ -63,8 +62,27 @@ source $ZSH_PLUGINS/history/history.zsh
 
 # fzf from Oh My ZSH (https://github.com/ohmyzsh/ohmyzsh/blob/master/plugins/fzf/fzf.plugin.zsh)
 source $ZSH_PLUGINS/fzf/fzf.plugin.zsh
+
 export FZF_DEFAULT_OPS="--extended"
 export FZF_CTRL_T_OPTS="--select-1 --exit-0"
+# Options to fzf command
+export FZF_COMPLETION_OPTS='+c -x'
+export FZF_DEFAULT_COMMAND='fdfind --hidden --follow --exclude .git'
+export FZF_CTRL_T_COMMAND=$FZF_DEFAULT_COMMAND
+export FZF_ALT_C_COMMAND="$FZF_DEFAULT_COMMAND --type d"
+
+# Use fd (https://github.com/sharkdp/fd) instead of the default find
+# command for listing path candidates.
+# - The first argument to the function ($1) is the base path to start traversal
+# - See the source code (completion.{bash,zsh}) for the details.
+_fzf_compgen_path() {
+  fdfind --hidden --follow --exclude ".git" . "$1"
+}
+
+# Use fd to generate the list for directory completion
+_fzf_compgen_dir() {
+  fdfind --type d --hidden --follow --exclude ".git" . "$1"
+}
 
 source $ZSH_PLUGINS/zsh-autosuggestions/zsh-autosuggestions.zsh
 
