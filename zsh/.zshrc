@@ -11,6 +11,8 @@ ZSH_PLUGINS=$DOTFILES/zsh/plugins
 ZSH_CONFIG=$HOME/.config/zsh
 [ -d $ZSH_CONFIG ] || mkdir $ZSH_CONFIG
 
+export EDITOR=/usr/bin/vim
+
 # Setup p10k
 source $ZSH_PLUGINS/powerlevel10k/powerlevel10k.zsh-theme
 
@@ -21,7 +23,7 @@ source $ZSH_PLUGINS/powerlevel10k/powerlevel10k.zsh-theme
 # Improves file globbing, like using the ^ to negate the pattern following it
 setopt extendedglob
 # cd without cd
-setopt autocd
+# setopt autocd
 # A command name with a = prepended is replaced with its full pathname.
 # Uncomment to turn off:
 # setopt noequals
@@ -35,9 +37,48 @@ DIRSTACKSIZE=8
 setopt autopushd pushdminus pushdsilent pushdtohome
 alias dh='dirs -v'
 
-
 # imports aliases
 source $DOTFILES/aliases/.aliases
+
+# Exports all manually installed apt packages
+[[ -f ~/.dependencies/apt-base-manual.txt ]] && eamsm
+
+# Enables vim mode
+bindkey -v
+  
+# https://www.johnhawthorn.com/2012/09/vi-escape-delays/
+# Sets the default keytimeout to 10 ms
+KEYTIMEOUT=1
+
+bindkey -a u undo
+bindkey -a '^r' redo
+
+bindkey -M vicmd "^r" fzf-history-widget
+bindkey -M vicmd "^[c" fzf-cd-widget
+
+function fzf-preview {
+  if [[ $_p9k__keymap == "vicmd" || -z $BUFFER ]]; then
+    # # This approach has issues with tmux-vim-navigator
+    # local file=$(fzfp)
+    # [[ -f $file ]] && $($EDITOR $file < /dev/tty) 
+    BUFFER=""
+    LBUFFER="$(basename $EDITOR) $(fzfp)"
+  else
+    LBUFFER="${LBUFFER}$(fzfp -m --height=70% | tr '\n' ' ')"
+  fi
+  local ret=$?
+  zle reset-prompt
+  return $ret
+}
+zle -N fzf-preview
+bindkey -M vicmd "^p" fzf-preview 
+bindkey -M viins "^p" fzf-preview 
+
+# Enables vim manpages
+export PAGER="/bin/sh -c \"unset PAGER;col -b -x | \
+  vim -R -c 'set ft=man nomod nolist' -c 'map q :q<CR>' \
+  -c 'map <SPACE> <C-D>' -c 'map b <C-U>' \
+  -c 'nmap K :Man <C-R>=expand(\\\"<cword>\\\")<CR><CR>' -\""
 
 source $DOTFILES/nvm/nvm.sh
 source $DOTFILES/rbenv/rbenv.sh
@@ -46,15 +87,14 @@ source $DOTFILES/pyenv/pyenv.sh
 # Add path to exa
 path+=("$HOME/.cargo/bin")
 
-
 # PLUGINS (https://github.com/unixorn/awesome-zsh-plugins)
 
 # Enables z command
 source $ZSH_PLUGINS/zsh-z/zsh-z.plugin.zsh
 # For autocomplete on the z plugin
 autoload -U compinit && compinit
-# Nice tab complete menu
-zstyle ':completion:*' menu select
+# Tab complete menu
+# zstyle ':completion:*' menu select
 
 # History from Oh My ZSH (https://github.com/ohmyzsh/ohmyzsh/blob/master/lib/history.zsh)
 HISTFILE=$ZSH_CONFIG/.zsh_history
@@ -66,10 +106,13 @@ source $ZSH_PLUGINS/fzf/fzf.plugin.zsh
 export FZF_DEFAULT_OPS="--extended"
 export FZF_CTRL_T_OPTS="--select-1 --exit-0"
 # Options to fzf command
-export FZF_COMPLETION_OPTS='+c -x'
+export FZF_COMPLETION_OPTS='-x'
 export FZF_DEFAULT_COMMAND='fdfind --hidden --follow --exclude .git'
 export FZF_CTRL_T_COMMAND=$FZF_DEFAULT_COMMAND
 export FZF_ALT_C_COMMAND="$FZF_DEFAULT_COMMAND --type d"
+
+# Use ~~ as the trigger sequence instead of the default **
+export FZF_COMPLETION_TRIGGER='~~'
 
 # Use fd (https://github.com/sharkdp/fd) instead of the default find
 # command for listing path candidates.
@@ -84,8 +127,16 @@ _fzf_compgen_dir() {
   fdfind --type d --hidden --follow --exclude ".git" . "$1"
 }
 
+source $ZSH_PLUGINS/fzf-tab/fzf-tab.plugin.zsh
+
 source $ZSH_PLUGINS/zsh-autosuggestions/zsh-autosuggestions.zsh
+
+# Enable for solarized theme
+ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=60'
+
+[[ -f $DOTFILES/local/.zshrc.local ]] && source $DOTFILES/local/.zshrc.local
 
 # MUST BE AT THE END OF THE FILE
 # Syntax highlighting
 source $ZSH_PLUGINS/fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh
+

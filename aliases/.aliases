@@ -5,5 +5,8 @@ alias fd='fdfind'
 alias which='whence -p'
 alias rm='rm -i'
 alias mv='mv -i'
+alias bat='batcat'
+alias amsm='apt-mark showmanual | diff --unchanged-line-format="" ~/.dependencies/apt-base-manual.txt - | sort'
+alias eamsm='amsm > ~/.dependencies/ubuntu-dependencies.txt'
 # Opens fzf in preview mode in current directory
-alias fzfp="fdfind --type f --hidden --follow --exclude .git  | fzf --preview 'head -100 {}'"
+alias fzfp='fd --type f --hidden --follow --exclude .git  | fzf --layout reverse --info inline --border --preview "batcat {} --color=always -n --line-range :50 "'
