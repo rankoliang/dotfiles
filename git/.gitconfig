@@ -1,2 +1,4 @@
 [include]
 	path = ~/.dotfiles/local/.gitconfig.local
+[core]
+	excludesfile = ~/.gitignore_global
