@@ -23,7 +23,7 @@ set timeoutlen=1000
 set ttimeoutlen=0
 
 " activate before copy-pasting with F2
-set pastetoggle=<F2>
+set pastetoggle=<F3>
 
 set nocompatible
 filetype on
@@ -89,6 +89,7 @@ nnoremap <Leader>vl :VimuxRunLastCommand<CR>
 " Enter the tmux pane in copy mode
 nnoremap <Leader>vi :VimuxInspectRunner<CR>
 nnoremap <Leader>vz :VimuxZoomRunner<CR>
+
 " " fzf settings
 " " Mapping selecting mappings
 " nnoremap <leader><tab> <plug>(fzf-maps-n)
@@ -143,9 +144,13 @@ set laststatus=2
 let g:lightline = {
   \ 'colorscheme': 'solarized',
   \ 'active': {
-  \   'left': [ [ 'mode', 'paste' ],
-  \             [ 'cocstatus', 'readonly', 'filename', 
-  \               'fugitive', 'modified' ] ],
+  \   'left': [ [ 'mode', 'paste', ],
+  \             [ 
+  \               'coc_error', 'coc_warning', 
+  \               'coc_hint', 'coc_info',
+  \               'readonly', 'fugitive', 
+  \               'filename', 'modified',
+  \             ] ]
   \ },
   \ 'component': {
   \   'lineinfo': ' %3l:%-2v',
@@ -153,11 +158,25 @@ let g:lightline = {
   \ 'component_function': {
   \   'readonly': 'LightlineReadonly',
   \   'fugitive': 'LightlineFugitive',
-  \   'cocstatus': 'coc#status'
+  \ },
+  \ 'component_expand': {
+  \   'coc_error'        : 'LightlineCocErrors',
+  \   'coc_warning'      : 'LightlineCocWarnings',
+  \   'coc_info'         : 'LightlineCocInfos',
+  \   'coc_hint'         : 'LightlineCocHints',
+  \   'coc_fix'          : 'LightlineCocFixes',
   \ },
   \ 'separator': { 'left': '', 'right': '' },
   \ 'subseparator': { 'left': '', 'right': '' }
   \ }
+
+let g:lightline.component_type = {
+\   'coc_error'        : 'error',
+\   'coc_warning'      : 'warning',
+\   'coc_info'         : 'tabsel',
+\   'coc_hint'         : 'middle',
+\   'coc_fix'          : 'middle',
+\ }
 
 function! LightlineReadonly()
   return &readonly ? '' : ''
@@ -169,6 +188,32 @@ function! LightlineFugitive()
     return branch !=# '' ? ''.branch : ''
   endif
   return ''
+endfunction
+
+" https://github.com/neoclide/coc.nvim/issues/401
+
+function! s:lightline_coc_diagnostic(kind, sign) abort
+	let info = get(b:, 'coc_diagnostic_info', 0)
+	if empty(info) || get(info, a:kind, 0) == 0
+		return ''
+	endif
+	return printf('%s%d', a:sign, info[a:kind])
+endfunction
+
+function! LightlineCocErrors() abort
+	return s:lightline_coc_diagnostic('error', 'E')
+endfunction
+
+function! LightlineCocWarnings() abort
+	return s:lightline_coc_diagnostic('warning', 'W')
+endfunction
+
+function! LightlineCocInfos() abort
+	return s:lightline_coc_diagnostic('information', 'I')
+endfunction
+
+function! LightlineCocHints() abort
+	return s:lightline_coc_diagnostic('hints', 'H')
 endfunction
 
 autocmd User CocStatusChange,CocDiagnosticChange call lightline#update()
