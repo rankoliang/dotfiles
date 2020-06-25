@@ -36,25 +36,28 @@ set colorcolumn=81
 
 set mouse=a
 
+map <Space> <Nop>
+let g:mapleader = " "
 " :PlugInstall after sourcing to install
 call plug#begin('~/.vim/plugged')
+  " Plug 'junegunn/fzf', { 'do': { -> fzf#install } }
+  " Plug 'junegunn/fzf.vim'
   Plug 'airblade/vim-gitgutter'
   Plug 'altercation/vim-colors-solarized'
   Plug 'ap/vim-css-color'
+  Plug 'benmills/vimux'
   Plug 'christoomey/vim-tmux-navigator'
   Plug 'edkolev/tmuxline.vim'
+  Plug 'honza/vim-snippets'
   Plug 'itchyny/lightline.vim'
-  Plug 'junegunn/fzf', { 'do': { -> fzf#install } }
   Plug 'luochen1990/rainbow'
+  Plug 'markonm/traces.vim' " :s command preview
   Plug 'nathanaelkane/vim-indent-guides'
   Plug 'neoclide/coc.nvim', {'branch': 'release'} " Intellisense features
   Plug 'tpope/vim-commentary'
   Plug 'tpope/vim-fugitive'
   Plug 'tpope/vim-surround'
   Plug 'vim-ruby/vim-ruby'
-  Plug 'markonm/traces.vim' " :s command preview
-  Plug 'junegunn/fzf.vim'
-  Plug 'honza/vim-snippets'
 call plug#end()
 
 " https://github.com/altercation/vim-colors-solarized
@@ -80,21 +83,28 @@ syntax enable
 colorscheme solarized
 set background=dark
 
-" fzf settings
-" Mapping selecting mappings
-nmap <leader><tab> <plug>(fzf-maps-n)
-xmap <leader><tab> <plug>(fzf-maps-x)
-omap <leader><tab> <plug>(fzf-maps-o)
+" vimux
+nnoremap <Leader>vp :VimuxPromptCommand<CR>
+nnoremap <Leader>vl :VimuxRunLastCommand<CR>
+" Enter the tmux pane in copy mode
+nnoremap <Leader>vi :VimuxInspectRunner<CR>
+nnoremap <Leader>vz :VimuxZoomRunner<CR>
+" " fzf settings
+" " Mapping selecting mappings
+" nnoremap <leader><tab> <plug>(fzf-maps-n)
+" xnoremap <leader><tab> <plug>(fzf-maps-x)
+" onoremap <leader><tab> <plug>(fzf-maps-o)
 
-" Insert mode completion
-imap <c-x><c-k> <plug>(fzf-complete-word)
-imap <c-x><c-f> <plug>(fzf-complete-path)
-imap <c-x><c-l> <plug>(fzf-complete-line)
-imap <c-x><c-q> <plug>(fzf-complete-file)
+" " Insert mode completion
+" inoremap <c-x><c-k> <plug>(fzf-complete-word)
+" inoremap <c-x><c-f> <plug>(fzf-complete-path)
+" inoremap <c-x><c-l> <plug>(fzf-complete-line)
+" inoremap <c-x><c-q> <plug>(fzf-complete-file)
 
-" Sets linenumber to white 
+" Sets linenumber bar
 set cursorline
-hi CursorLineNr cterm=none ctermfg=15 ctermbg=0
+hi CursorLineNr cterm=none ctermfg=15 ctermbg=8
+hi LineNr ctermbg=8
 
 " Recommended by vim-gitgutter
 set updatetime=100
@@ -110,7 +120,7 @@ hi GitGutterChangeDelete ctermbg=9 ctermfg=0
 let g:rainbow_active = 1
 let g:rainbow_conf = {
 \  'ctermfgs': [9,3,4],
-\  'operators': '_,\|:_', 
+\  'operators': '_,_', 
 \ }
 hi MatchParen cterm=bold ctermfg=8 ctermbg=3
 
@@ -123,6 +133,9 @@ autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd ctermbg=8
 
 " CoC settings
 source ~/.dotfiles/vim/coc.vim
+" https://www.reddit.com/r/vim/comments/dat6zc/cocnvim_autocompletion_not_working_for_cspace_in/
+inoremap <silent><expr> <C-_> coc#refresh()
+" :CocConfig to change settings
 
 " Lightlight settings
 set laststatus=2
@@ -131,7 +144,8 @@ let g:lightline = {
   \ 'colorscheme': 'solarized',
   \ 'active': {
   \   'left': [ [ 'mode', 'paste' ],
-  \             [ 'cocstatus', 'readonly', 'filename', 'fugitive', 'modified' ] ],
+  \             [ 'cocstatus', 'readonly', 'filename', 
+  \               'fugitive', 'modified' ] ],
   \ },
   \ 'component': {
   \   'lineinfo': ' %3l:%-2v',
