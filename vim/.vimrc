@@ -30,8 +30,6 @@ filetype on
 filetype indent on
 filetype plugin on
 
-" Change pane separator style
-hi VertSplit cterm=none ctermbg=0 ctermfg=0
 set colorcolumn=81
 
 set mouse=a
@@ -42,6 +40,7 @@ let g:mapleader = " "
 call plug#begin('~/.vim/plugged')
   " Plug 'junegunn/fzf', { 'do': { -> fzf#install } }
   " Plug 'junegunn/fzf.vim'
+  " Plug 'vim-ruby/vim-ruby'
   Plug 'airblade/vim-gitgutter'
   Plug 'altercation/vim-colors-solarized'
   Plug 'ap/vim-css-color'
@@ -55,9 +54,13 @@ call plug#begin('~/.vim/plugged')
   Plug 'nathanaelkane/vim-indent-guides'
   Plug 'neoclide/coc.nvim', {'branch': 'release'} " Intellisense features
   Plug 'tpope/vim-commentary'
+  Plug 'tpope/vim-dispatch'
   Plug 'tpope/vim-fugitive'
   Plug 'tpope/vim-surround'
-  Plug 'vim-ruby/vim-ruby'
+  Plug 'vim-test/vim-test'
+  Plug 'preservim/nerdtree'
+  Plug 'Xuyuanp/nerdtree-git-plugin'
+  Plug 'ryanoasis/vim-devicons'
 call plug#end()
 
 " https://github.com/altercation/vim-colors-solarized
@@ -79,9 +82,18 @@ call plug#end()
 " blue       4/4 blue     
 " cyan       6/6 cyan     
 " green      2/2 green    
+
 syntax enable
 colorscheme solarized
 set background=dark
+
+" Nerdtree
+nnoremap <Leader>nt :NERDTreeToggle<CR>
+let g:webdevicons_enable = 1
+let g:webdevicons_enable_nerdtree = 1
+set encoding=UTF-8
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree")
+	\	&& b:NERDTree.isTabTree()) | q | endif
 
 " vimux
 nnoremap <Leader>vp :VimuxPromptCommand<CR>
@@ -89,6 +101,14 @@ nnoremap <Leader>vl :VimuxRunLastCommand<CR>
 " Enter the tmux pane in copy mode
 nnoremap <Leader>vi :VimuxInspectRunner<CR>
 nnoremap <Leader>vz :VimuxZoomRunner<CR>
+
+" vim-test
+let test#strategy = 'dispatch'
+
+nnoremap <silent> <Leader>tn :TestNearest<CR>
+nnoremap <silent> <Leader>tf :TestFile<CR>
+nnoremap <silent> <Leader>ts :TestSuite<CR>
+nnoremap <silent> <Leader>tl :TestLast<CR>
 
 " " fzf settings
 " " Mapping selecting mappings
@@ -134,8 +154,6 @@ autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd ctermbg=8
 
 " CoC settings
 source ~/.dotfiles/vim/coc.vim
-" https://www.reddit.com/r/vim/comments/dat6zc/cocnvim_autocompletion_not_working_for_cspace_in/
-inoremap <silent><expr> <C-_> coc#refresh()
 " :CocConfig to change settings
 
 " Lightlight settings
@@ -193,27 +211,27 @@ endfunction
 " https://github.com/neoclide/coc.nvim/issues/401
 
 function! s:lightline_coc_diagnostic(kind, sign) abort
-	let info = get(b:, 'coc_diagnostic_info', 0)
-	if empty(info) || get(info, a:kind, 0) == 0
-		return ''
-	endif
-	return printf('%s%d', a:sign, info[a:kind])
+  let info = get(b:, 'coc_diagnostic_info', 0)
+  if empty(info) || get(info, a:kind, 0) == 0
+    return ''
+  endif
+  return printf('%s%d', a:sign, info[a:kind])
 endfunction
 
 function! LightlineCocErrors() abort
-	return s:lightline_coc_diagnostic('error', 'E')
+  return s:lightline_coc_diagnostic('error', 'E')
 endfunction
 
 function! LightlineCocWarnings() abort
-	return s:lightline_coc_diagnostic('warning', 'W')
+  return s:lightline_coc_diagnostic('warning', 'W')
 endfunction
 
 function! LightlineCocInfos() abort
-	return s:lightline_coc_diagnostic('information', 'I')
+  return s:lightline_coc_diagnostic('information', 'I')
 endfunction
 
 function! LightlineCocHints() abort
-	return s:lightline_coc_diagnostic('hints', 'H')
+  return s:lightline_coc_diagnostic('hints', 'H')
 endfunction
 
 autocmd User CocStatusChange,CocDiagnosticChange call lightline#update()

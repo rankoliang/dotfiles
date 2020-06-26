@@ -105,10 +105,10 @@ omap ic <Plug>(coc-classobj-i)
 xmap ac <Plug>(coc-classobj-a)
 omap ac <Plug>(coc-classobj-a)
 
-" Use CTRL-S for selections ranges.
-" Requires 'textDocument/selectionRange' support of LS, ex: coc-tsserver
-nmap <silent> <C-s> <Plug>(coc-range-select)
-xmap <silent> <C-s> <Plug>(coc-range-select)
+" " Use CTRL-S for selections ranges.
+" " Requires 'textDocument/selectionRange' support of LS, ex: coc-tsserver
+" nmap <silent> <C-s> <Plug>(coc-range-select)
+" xmap <silent> <C-s> <Plug>(coc-range-select)
 
 " Add `:Format` command to format current buffer.
 command! -nargs=0 Format :call CocAction('format')
@@ -124,20 +124,27 @@ command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organize
 " provide custom statusline: lightline.vim, vim-airline.
 " set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
 
-" Mappings for CoCList
-" Show all diagnostics.
-nnoremap <silent><nowait> <space>a  :<C-u>CocList diagnostics<cr>
-" Manage extensions.
-nnoremap <silent><nowait> <space>e  :<C-u>CocList extensions<cr>
-" Show commands.
-nnoremap <silent><nowait> <space>c  :<C-u>CocList commands<cr>
-" Find symbol of current document.
-nnoremap <silent><nowait> <space>o  :<C-u>CocList outline<cr>
-" Search workspace symbols.
-nnoremap <silent><nowait> <space>s  :<C-u>CocList -I symbols<cr>
-" Do default action for next item.
-nnoremap <silent><nowait> <space>j  :<C-u>CocNext<CR>
-" Do default action for previous item.
-nnoremap <silent><nowait> <space>k  :<C-u>CocPrev<CR>
-" Resume latest coc list.
-nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
+" " Mappings for CoCList
+" " Show all diagnostics.
+" nnoremap <silent><nowait> <space>a  :<C-u>CocList diagnostics<cr>
+" " Manage extensions.
+" nnoremap <silent><nowait> <space>e  :<C-u>CocList extensions<cr>
+" " Show commands.
+" nnoremap <silent><nowait> <space>c  :<C-u>CocList commands<cr>
+" " Find symbol of current document.
+" nnoremap <silent><nowait> <space>o  :<C-u>CocList outline<cr>
+" " Search workspace symbols.
+" nnoremap <silent><nowait> <space>s  :<C-u>CocList -I symbols<cr>
+" " Do default action for next item.
+" nnoremap <silent><nowait> <space>j  :<C-u>CocNext<CR>
+" " Do default action for previous item.
+" nnoremap <silent><nowait> <space>k  :<C-u>CocPrev<CR>
+" " Resume latest coc list.
+" nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
+
+" https://www.reddit.com/r/vim/comments/dat6zc/cocnvim_autocompletion_not_working_for_cspace_in/
+inoremap <silent><expr> <C-_> coc#refresh()
+
+hi CocErrorSign ctermbg=0 ctermfg=1
+hi CocWarningSign ctermbg=0 ctermfg=3
+hi CoCInfoSign ctermbg=0 ctermfg=10
