@@ -61,8 +61,11 @@ function fzf-preview {
     # # This approach has issues with tmux-vim-navigator
     # local file=$(fzfp)
     # [[ -f $file ]] && $($EDITOR $file < /dev/tty) 
-    BUFFER=""
-    LBUFFER="$(basename $EDITOR) $(fzfp)"
+    local file=$(fzfp)
+    if [[ -f $file ]]; then
+      BUFFER=""
+      LBUFFER="$(basename $EDITOR) $file"
+    fi
   else
     LBUFFER="${LBUFFER}$(fzfp -m --height=70% | tr '\n' ' ')"
   fi
@@ -75,10 +78,11 @@ bindkey -M vicmd "^p" fzf-preview
 bindkey -M viins "^p" fzf-preview 
 
 # Enables vim manpages
-export PAGER="/bin/sh -c \"unset PAGER;col -b -x | \
-  vim -R -c 'set ft=man nomod nolist' -c 'map q :q<CR>' \
-  -c 'map <SPACE> <C-D>' -c 'map b <C-U>' \
-  -c 'nmap K :Man <C-R>=expand(\\\"<cword>\\\")<CR><CR>' -\""
+export MANPAGER="vim -M +MANPAGER -"
+# export PAGER="/bin/sh -c \"unset PAGER;col -b -x | \
+#   vim -R -c 'set ft=man nomod nolist' -c 'map q :q<CR>' \
+#   -c 'map <SPACE> <C-D>' -c 'map b <C-U>' \
+#   -c 'nmap K :Man <C-R>=expand(\\\"<cword>\\\")<CR><CR>' -\""
 
 source $DOTFILES/nvm/nvm.sh
 source $DOTFILES/rbenv/rbenv.sh

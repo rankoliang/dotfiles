@@ -32,7 +32,17 @@ filetype plugin on
 
 set colorcolumn=81
 
+" Mouse mode on
 set mouse=a
+
+set list
+set listchars=tab:❯·,trail:·,eol:¬
+
+" searches directories recursively
+set path+=**
+
+" displays matches with tab with a menu
+set wildmenu
 
 map <Space> <Nop>
 let g:mapleader = " "
@@ -87,6 +97,10 @@ syntax enable
 colorscheme solarized
 set background=dark
 
+" vim-fugitive diffs are hard to read with solarized
+" without this fix
+hi diffRemoved ctermfg=1
+
 " Nerdtree
 nnoremap <Leader>nt :NERDTreeToggle<CR>
 let g:webdevicons_enable = 1
@@ -103,7 +117,7 @@ nnoremap <Leader>vi :VimuxInspectRunner<CR>
 nnoremap <Leader>vz :VimuxZoomRunner<CR>
 
 " vim-test
-let test#strategy = 'dispatch'
+let test#strategy = 'vimux'
 
 nnoremap <silent> <Leader>tn :TestNearest<CR>
 nnoremap <silent> <Leader>tf :TestFile<CR>
