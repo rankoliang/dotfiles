@@ -77,12 +77,8 @@ zle -N fzf-preview
 bindkey -M vicmd "^p" fzf-preview 
 bindkey -M viins "^p" fzf-preview 
 
-# Enables vim manpages
-export MANPAGER="vim -M +MANPAGER -"
-# export PAGER="/bin/sh -c \"unset PAGER;col -b -x | \
-#   vim -R -c 'set ft=man nomod nolist' -c 'map q :q<CR>' \
-#   -c 'map <SPACE> <C-D>' -c 'map b <C-U>' \
-#   -c 'nmap K :Man <C-R>=expand(\\\"<cword>\\\")<CR><CR>' -\""
+# Use bat as a manpager
+export MANPAGER="sh -c 'col -bx | batcat -l man -p'"
 
 source $DOTFILES/nvm/nvm.sh
 source $DOTFILES/rbenv/rbenv.sh
