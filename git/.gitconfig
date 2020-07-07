@@ -2,3 +2,9 @@
 	path = ~/.dotfiles/local/.gitconfig.local
 [core]
 	excludesfile = ~/.gitignore_global
+	autocrlf = input
+	safecrlf = true
+[alias]
+	graph = log --oneline --abbrev-commit --all --graph --decorate --color
+[merge]
+	tool = vimdiff
