@@ -138,6 +138,11 @@ source $ZSH_PLUGINS/zsh-autosuggestions/zsh-autosuggestions.zsh
 # Enable for solarized theme
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=60'
 
+# solarized dir colors
+# https://github.com/joel-porquet/zsh-dircolors-solarized
+# Run setupsolarized to use theme
+source $ZSH_PLUGINS/zsh-dircolors-solarized/zsh-dircolors-solarized.zsh
+
 [[ -f $DOTFILES/local/.zshrc.local ]] && source $DOTFILES/local/.zshrc.local
 
 # MUST BE AT THE END OF THE FILE
