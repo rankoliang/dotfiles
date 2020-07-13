@@ -48,8 +48,8 @@ map <Space> <Nop>
 let g:mapleader = " "
 " :PlugInstall after sourcing to install
 call plug#begin('~/.vim/plugged')
-  " Plug 'junegunn/fzf', { 'do': { -> fzf#install } }
-  " Plug 'junegunn/fzf.vim'
+  Plug 'junegunn/fzf', { 'do': { -> fzf#install } }
+  Plug 'junegunn/fzf.vim'
   " Plug 'vim-ruby/vim-ruby'
   Plug 'airblade/vim-gitgutter'
   Plug 'altercation/vim-colors-solarized'
@@ -126,15 +126,25 @@ nnoremap <silent> <Leader>tl :TestLast<CR>
 
 " " fzf settings
 " " Mapping selecting mappings
-" nnoremap <leader><tab> <plug>(fzf-maps-n)
-" xnoremap <leader><tab> <plug>(fzf-maps-x)
-" onoremap <leader><tab> <plug>(fzf-maps-o)
+nnoremap <leader><tab> <plug>(fzf-maps-n)
+xnoremap <leader><tab> <plug>(fzf-maps-x)
+onoremap <leader><tab> <plug>(fzf-maps-o)
 
+nmap <C-P> <Nop>
+nnoremap <C-P> :Files<CR>
+inoremap <c-x><c-f> <Nop>
 " " Insert mode completion
 " inoremap <c-x><c-k> <plug>(fzf-complete-word)
-" inoremap <c-x><c-f> <plug>(fzf-complete-path)
+inoremap <c-x><c-f> <Plug>(fzf-complete-path)
 " inoremap <c-x><c-l> <plug>(fzf-complete-line)
 " inoremap <c-x><c-q> <plug>(fzf-complete-file)
+
+" [Buffers] Jump to the existing window if possible
+let g:fzf_buffers_jump = 1
+command! -bang -nargs=* GGrep
+  \ call fzf#vim#grep(
+  \   'git grep --line-number -- '.shellescape(<q-args>), 0,
+  \   fzf#vim#with_preview({'dir': systemlist('git rev-parse --show-toplevel')[0]}), <bang>0)
 
 " Sets linenumber bar
 set cursorline

@@ -71,10 +71,10 @@ autocmd CursorHold * silent call CocActionAsync('highlight')
 nmap <leader>rn <Plug>(coc-rename)
 
 " Formatting selected code.
-" xmap <leader>f  <Plug>(coc-format-selected)
-" nmap <leader>f  <Plug>(coc-format-selected)
-map <leader>f <Plug>(coc-format)
-map <F2> <Plug>(coc-rename)
+xmap <silent> <leader>f  <Plug>(coc-format-selected)
+" nmap <silent> <leader>f  <Plug>(coc-format-selected)
+nmap <silent> <leader>f <Plug>(coc-format)
+nmap <F2> <Plug>(coc-rename)
 
 augroup mygroup
   autocmd!

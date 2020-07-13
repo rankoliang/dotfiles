@@ -5,6 +5,6 @@
 	autocrlf = input
 	safecrlf = true
 [alias]
-	graph = log --oneline --abbrev-commit --all --graph --decorate --color
+	graph = log --oneline --abbrev-commit --graph --decorate --color
 [merge]
 	tool = vimdiff
