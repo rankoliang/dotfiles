@@ -53,11 +53,8 @@ set foldlevelstart=1
 set foldopen-=block
 set foldcolumn=1
 
-" Saves view when changing buffers
-" https://vim.fandom.com/wiki/Make_views_automatic
-" Breaks <C-w>=
-" autocmd BufWinLeave *.* mkview
-" autocmd BufWinEnter *.* silent loadview
+" Resizes split panes automatically
+autocmd VimResized * wincmd =
 
 set colorcolumn=81
 
@@ -78,7 +75,6 @@ let g:mapleader = " "
 " :PlugInstall after sourcing to install
 call plug#begin('~/.vim/plugged')
   " Plug 'nathanaelkane/vim-indent-guides'
-  " Plug 'vim-ruby/vim-ruby'
   Plug 'Xuyuanp/nerdtree-git-plugin'
   Plug 'airblade/vim-gitgutter'
   Plug 'altercation/vim-colors-solarized'
@@ -102,6 +98,7 @@ call plug#begin('~/.vim/plugged')
   Plug 'tpope/vim-dispatch'
   Plug 'tpope/vim-fugitive'
   Plug 'tpope/vim-surround'
+  Plug 'vim-ruby/vim-ruby'
   Plug 'vim-test/vim-test'
 call plug#end()
 
@@ -128,6 +125,18 @@ call plug#end()
 syntax enable
 colorscheme solarized
 set background=dark
+" vimruby
+let ruby_operators = 1
+let ruby_pseudo_operators = 1
+let ruby_fold = 1
+
+" Tagbar
+let g:tagbar_autofocus=1
+let g:tagbar_left = 1
+let g:tagbar_width = 35
+let g:tagbar_autopreview = 1
+let g:tagbar_sort = 0
+let g:tagbar_previewwin_pos = 'aboveleft'
 
 hi Folded cterm=none
 " vim-fugitive diffs are hard to read with solarized
