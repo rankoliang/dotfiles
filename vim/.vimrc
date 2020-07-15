@@ -30,6 +30,35 @@ filetype on
 filetype indent on
 filetype plugin on
 
+set foldmethod=syntax
+" https://bitbucket.org/sjl/dotfiles/src/8ac890f099a0ca970cd9cc90635264e95cb1a8be/vim/vimrc?at=default&fileviewer=file-view-default
+function! MyFoldText()
+    let line = getline(v:foldstart)
+
+    let nucolwidth = &fdc + &number * &numberwidth
+    let windowwidth = winwidth(0) - nucolwidth - 3
+    let foldedlinecount = v:foldend - v:foldstart
+
+    " expand tabs into spaces
+    let onetab = strpart('          ', 0, &tabstop)
+    let line = substitute(line, '\t', onetab, 'g')
+
+    let line = strpart(line, 0, windowwidth - 2 -len(foldedlinecount))
+    let fillcharcount = windowwidth - len(line) - len(foldedlinecount)
+    return line . ' [' . foldedlinecount . '] ⋯' . repeat(" ",fillcharcount)
+endfunction
+set foldtext=MyFoldText()
+set foldlevelstart=1
+" Fixes jumping around with { / }
+set foldopen-=block
+set foldcolumn=1
+
+" Saves view when changing buffers
+" https://vim.fandom.com/wiki/Make_views_automatic
+" Breaks <C-w>=
+" autocmd BufWinLeave *.* mkview
+" autocmd BufWinEnter *.* silent loadview
+
 set colorcolumn=81
 
 " Mouse mode on
@@ -48,9 +77,9 @@ map <Space> <Nop>
 let g:mapleader = " "
 " :PlugInstall after sourcing to install
 call plug#begin('~/.vim/plugged')
-  Plug 'junegunn/fzf', { 'do': { -> fzf#install } }
-  Plug 'junegunn/fzf.vim'
+  " Plug 'nathanaelkane/vim-indent-guides'
   " Plug 'vim-ruby/vim-ruby'
+  Plug 'Xuyuanp/nerdtree-git-plugin'
   Plug 'airblade/vim-gitgutter'
   Plug 'altercation/vim-colors-solarized'
   Plug 'ap/vim-css-color'
@@ -59,18 +88,21 @@ call plug#begin('~/.vim/plugged')
   Plug 'edkolev/tmuxline.vim'
   Plug 'honza/vim-snippets'
   Plug 'itchyny/lightline.vim'
+  Plug 'jrudess/vim-foldtext'
+  Plug 'junegunn/fzf', { 'do': { -> fzf#install } }
+  Plug 'junegunn/fzf.vim'
+  Plug 'ludovicchabant/vim-gutentags'
   Plug 'luochen1990/rainbow'
+  Plug 'majutsushi/tagbar'
   Plug 'markonm/traces.vim' " :s command preview
-  Plug 'nathanaelkane/vim-indent-guides'
   Plug 'neoclide/coc.nvim', {'branch': 'release'} " Intellisense features
+  Plug 'preservim/nerdtree'
+  Plug 'ryanoasis/vim-devicons'
   Plug 'tpope/vim-commentary'
   Plug 'tpope/vim-dispatch'
   Plug 'tpope/vim-fugitive'
   Plug 'tpope/vim-surround'
   Plug 'vim-test/vim-test'
-  Plug 'preservim/nerdtree'
-  Plug 'Xuyuanp/nerdtree-git-plugin'
-  Plug 'ryanoasis/vim-devicons'
 call plug#end()
 
 " https://github.com/altercation/vim-colors-solarized
@@ -97,6 +129,7 @@ syntax enable
 colorscheme solarized
 set background=dark
 
+hi Folded cterm=none
 " vim-fugitive diffs are hard to read with solarized
 " without this fix
 hi diffRemoved ctermfg=1
@@ -150,6 +183,9 @@ command! -bang -nargs=* GGrep
 set cursorline
 hi CursorLineNr cterm=none ctermfg=15 ctermbg=8
 hi LineNr ctermbg=8
+
+" Tagbar
+nnoremap <F8> :TagbarToggle<CR>
 
 " Recommended by vim-gitgutter
 set updatetime=100
