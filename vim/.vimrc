@@ -30,28 +30,17 @@ filetype on
 filetype indent on
 filetype plugin on
 
-set foldmethod=syntax
-" https://bitbucket.org/sjl/dotfiles/src/8ac890f099a0ca970cd9cc90635264e95cb1a8be/vim/vimrc?at=default&fileviewer=file-view-default
-function! MyFoldText()
-    let line = getline(v:foldstart)
-
-    let nucolwidth = &fdc + &number * &numberwidth
-    let windowwidth = winwidth(0) - nucolwidth - 3
-    let foldedlinecount = v:foldend - v:foldstart
-
-    " expand tabs into spaces
-    let onetab = strpart('          ', 0, &tabstop)
-    let line = substitute(line, '\t', onetab, 'g')
-
-    let line = strpart(line, 0, windowwidth - 2 -len(foldedlinecount))
-    let fillcharcount = windowwidth - len(line) - len(foldedlinecount)
-    return line . ' [' . foldedlinecount . '] ⋯' . repeat(" ",fillcharcount)
-endfunction
-set foldtext=MyFoldText()
+set foldmethod=manual
 set foldlevelstart=1
 " Fixes jumping around with { / }
-set foldopen-=block
+set foldopen-=block,hor
 set foldcolumn=1
+" set foldminlines=2
+augroup remember_folds
+  autocmd!
+  au BufWinLeave ?* mkview 1
+  au BufWinEnter ?* silent! loadview 1
+augroup END
 
 " Resizes split panes automatically
 autocmd VimResized * wincmd =
@@ -84,10 +73,11 @@ call plug#begin('~/.vim/plugged')
   Plug 'edkolev/tmuxline.vim'
   Plug 'honza/vim-snippets'
   Plug 'itchyny/lightline.vim'
+  " Plug 'jiangmiao/auto-pairs'
   Plug 'jrudess/vim-foldtext'
   Plug 'junegunn/fzf', { 'do': { -> fzf#install } }
   Plug 'junegunn/fzf.vim'
-  Plug 'ludovicchabant/vim-gutentags'
+  " Plug 'ludovicchabant/vim-gutentags'
   Plug 'luochen1990/rainbow'
   Plug 'majutsushi/tagbar'
   Plug 'markonm/traces.vim' " :s command preview
@@ -126,9 +116,11 @@ syntax enable
 colorscheme solarized
 set background=dark
 " vimruby
+let ruby_no_expensive = 1
 let ruby_operators = 1
 let ruby_pseudo_operators = 1
-let ruby_fold = 1
+" let ruby_fold = 1
+" let ruby_foldable_groups = 'def'
 
 " Tagbar
 let g:tagbar_autofocus=1
@@ -181,6 +173,20 @@ inoremap <c-x><c-f> <Plug>(fzf-complete-path)
 " inoremap <c-x><c-l> <plug>(fzf-complete-line)
 " inoremap <c-x><c-q> <plug>(fzf-complete-file)
 
+" fzf ripgrep
+nmap \ <Nop>
+nnoremap \ :RG<CR>
+
+function! RipgrepFzf(query, fullscreen)
+  let command_fmt = 'rg --column --line-number --no-heading --color=always --smart-case -- %s || true'
+  let initial_command = printf(command_fmt, shellescape(a:query))
+  let reload_command = printf(command_fmt, '{q}')
+  let spec = {'options': ['--phony', '--query', a:query, '--bind', 'change:reload:'.reload_command]}
+  call fzf#vim#grep(initial_command, 1, fzf#vim#with_preview(spec), a:fullscreen)
+endfunction
+
+command! -nargs=* -bang RG call RipgrepFzf(<q-args>, <bang>0)
+
 " [Buffers] Jump to the existing window if possible
 let g:fzf_buffers_jump = 1
 command! -bang -nargs=* GGrep
@@ -213,6 +219,10 @@ let g:rainbow_conf = {
 \  'operators': '_,_', 
 \ }
 hi MatchParen cterm=bold ctermfg=8 ctermbg=3
+
+" Autopairs
+let g:AutoPairsFlyMode = 1
+let g:AutoPairsShortcutBackInsert = '<C-b>'
 
 " indent guides
 let g:indent_guides_enable_on_vim_startup = 1
