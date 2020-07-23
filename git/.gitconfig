@@ -8,3 +8,5 @@
 	graph = log --oneline --abbrev-commit --graph --decorate --color
 [merge]
 	tool = vimdiff
+[init]
+	templatedir = ~/.git_template

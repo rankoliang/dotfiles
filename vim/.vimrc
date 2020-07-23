@@ -1,3 +1,4 @@
+set nocompatible
 set noerrorbells
 
 " Expands tabs to spaces
@@ -25,7 +26,6 @@ set ttimeoutlen=0
 " activate before copy-pasting with F2
 set pastetoggle=<F3>
 
-set nocompatible
 filetype on
 filetype indent on
 filetype plugin on
