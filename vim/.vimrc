@@ -36,11 +36,6 @@ set foldlevelstart=1
 set foldopen-=block,hor
 set foldcolumn=1
 " set foldminlines=2
-augroup remember_folds
-  autocmd!
-  au BufWinLeave ?* mkview 1
-  au BufWinEnter ?* silent! loadview 1
-augroup END
 
 " Resizes split panes automatically
 autocmd VimResized * wincmd =
@@ -82,11 +77,13 @@ call plug#begin('~/.vim/plugged')
   Plug 'majutsushi/tagbar'
   Plug 'markonm/traces.vim' " :s command preview
   Plug 'neoclide/coc.nvim', {'branch': 'release'} " Intellisense features
-  Plug 'preservim/nerdtree'
+  " Plug 'preservim/nerdtree'
   Plug 'ryanoasis/vim-devicons'
   Plug 'tpope/vim-commentary'
   Plug 'tpope/vim-dispatch'
   Plug 'tpope/vim-fugitive'
+  Plug 'tpope/vim-obsession'
+  Plug 'tpope/vim-repeat'
   Plug 'tpope/vim-surround'
   Plug 'vim-ruby/vim-ruby'
   Plug 'vim-test/vim-test'
@@ -130,18 +127,22 @@ let g:tagbar_autopreview = 1
 let g:tagbar_sort = 0
 let g:tagbar_previewwin_pos = 'aboveleft'
 
+" Tagbar
+nnoremap <F8> :TagbarToggle<CR>
+
 hi Folded cterm=none
+
 " vim-fugitive diffs are hard to read with solarized
 " without this fix
 hi diffRemoved ctermfg=1
 
 " Nerdtree
-nnoremap <Leader>nt :NERDTreeToggle<CR>
-let g:webdevicons_enable = 1
-let g:webdevicons_enable_nerdtree = 1
-set encoding=UTF-8
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree")
-	\	&& b:NERDTree.isTabTree()) | q | endif
+" nnoremap <Leader>nt :NERDTreeToggle<CR>
+" let g:webdevicons_enable = 1
+" let g:webdevicons_enable_nerdtree = 1
+" set encoding=UTF-8
+" autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree")
+" 	\	&& b:NERDTree.isTabTree()) | q | endif
 
 " vimux
 nnoremap <Leader>vp :VimuxPromptCommand<CR>
@@ -194,13 +195,28 @@ command! -bang -nargs=* GGrep
   \   'git grep --line-number -- '.shellescape(<q-args>), 0,
   \   fzf#vim#with_preview({'dir': systemlist('git rev-parse --show-toplevel')[0]}), <bang>0)
 
+" https://github.com/junegunn/fzf.vim/pull/733#issuecomment-559720813
+function! s:list_buffers()
+  redir => list
+  silent ls
+  redir END
+  return split(list, "\n")
+endfunction
+
+function! s:delete_buffers(lines)
+  execute 'bwipeout' join(map(a:lines, {_, line -> split(line)[0]}))
+endfunction
+
+command! BD call fzf#run(fzf#wrap({
+  \ 'source': s:list_buffers(),
+  \ 'sink*': { lines -> s:delete_buffers(lines) },
+  \ 'options': '--multi --reverse --bind ctrl-a:select-all+accept'
+\ }))
+
 " Sets linenumber bar
 set cursorline
 hi CursorLineNr cterm=none ctermfg=15 ctermbg=8
 hi LineNr ctermbg=8
-
-" Tagbar
-nnoremap <F8> :TagbarToggle<CR>
 
 " Recommended by vim-gitgutter
 set updatetime=100
