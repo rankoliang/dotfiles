@@ -9,6 +9,6 @@ This is currently a work in progress. If you are looking to copy these dotfiles,
 email=email@gmail.com
 name=First Last
 ```
-Some other packages I have are [fzf](https://github.com/junegunn/fzf), [fd-find](https://github.com/sharkdp/fd), [Vim Plug](https://github.com/junegunn/vim-plug), most, [ripgrep](https://github.com/BurntSushi/ripgrep), [fd](https://github.com/sharkdp/fd), [bat](https://github.com/sharkdp/bat), [universal ctags](https://ctags.io/) and [exa](https://github.com/ogham/exa), but this is not an exhaustive list.
+Some other packages I have are [fzf](https://github.com/junegunn/fzf), [fd-find](https://github.com/sharkdp/fd), [Vim Plug](https://github.com/junegunn/vim-plug), most, [ripgrep](https://github.com/BurntSushi/ripgrep), [bat](https://github.com/sharkdp/bat), [universal ctags](https://ctags.io/) and [exa](https://github.com/ogham/exa), but this is not an exhaustive list.
 
 Note: to fix an issue with installing both bat and ripgrep on Ubuntu 20.04, reference [this](https://bugs.launchpad.net/ubuntu/+source/rust-bat/+bug/1868517/comments/32)
