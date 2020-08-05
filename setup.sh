@@ -1,3 +1,3 @@
 #!/bin/bash
 
-stow -nvt ~ vim tmux bash git
+stow -nvt ~ vim tmux git zsh fd-find
