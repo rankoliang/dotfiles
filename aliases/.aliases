@@ -10,3 +10,4 @@ alias amsm='apt-mark showmanual | diff --unchanged-line-format="" ~/.dependencie
 alias eamsm='amsm > ~/.dependencies/ubuntu-dependencies.txt'
 # Opens fzf in preview mode in current directory
 alias fzfp='fd --type f --hidden --follow --exclude .git | fzf --layout reverse --info inline --border --preview "batcat {} --color=always -n --line-range :50 "'
+alias vim='nvim'

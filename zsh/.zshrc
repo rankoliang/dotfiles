@@ -11,7 +11,7 @@ ZSH_PLUGINS=$DOTFILES/zsh/plugins
 ZSH_CONFIG=$HOME/.config/zsh
 [ -d $ZSH_CONFIG ] || mkdir $ZSH_CONFIG
 
-export EDITOR=/usr/bin/vim
+export EDITOR=/usr/bin/nvim
 
 # Setup p10k
 source $ZSH_PLUGINS/powerlevel10k/powerlevel10k.zsh-theme
