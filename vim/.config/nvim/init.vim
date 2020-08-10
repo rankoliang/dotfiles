@@ -15,6 +15,7 @@ set nowritebackup
 set undodir=~/.vim/.undo
 set undofile
 set incsearch
+set nohlsearch
 
 " Hybrid line number mode
 set relativenumber
@@ -52,8 +53,14 @@ map <Space> <Nop>
 let g:mapleader = " "
 
 call plug#begin()
+  Plug 'ap/vim-css-color'
   Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } }
+  Plug 'honza/vim-snippets'
+  Plug 'markonm/traces.vim' " :s command preview
+  Plug 'tpope/vim-commentary'
+  Plug 'tpope/vim-surround'
   if exists('g:started_by_firenvim')
+    call plug#end()
     set background=light
     set colorcolumn&
     " hide statusline
@@ -61,29 +68,23 @@ call plug#begin()
     set noruler
     set laststatus=0
     set noshowcmd
-    call plug#end()
     finish
   end
   Plug 'airblade/vim-gitgutter'
   Plug 'altercation/vim-colors-solarized'
-  Plug 'ap/vim-css-color'
   Plug 'benmills/vimux'
   Plug 'christoomey/vim-tmux-navigator'
-  Plug 'honza/vim-snippets'
   Plug 'itchyny/lightline.vim'
   Plug 'jrudess/vim-foldtext'
   Plug 'junegunn/fzf', { 'do': { -> fzf#install } }
   Plug 'junegunn/fzf.vim'
   Plug 'luochen1990/rainbow'
   Plug 'majutsushi/tagbar'
-  Plug 'markonm/traces.vim' " :s command preview
   Plug 'neoclide/coc.nvim', {'branch': 'release'} " Intellisense features
-  Plug 'tpope/vim-commentary'
   Plug 'tpope/vim-dispatch'
   Plug 'tpope/vim-fugitive'
   Plug 'tpope/vim-obsession'
   Plug 'tpope/vim-repeat'
-  Plug 'tpope/vim-surround'
   Plug 'vim-test/vim-test'
 call plug#end()
 
@@ -201,13 +202,6 @@ hi MatchParen cterm=bold ctermfg=8 ctermbg=3
 " Autopairs
 let g:AutoPairsFlyMode = 1
 let g:AutoPairsShortcutBackInsert = '<C-b>'
-
-" indent guides
-let g:indent_guides_enable_on_vim_startup = 1
-let g:indent_guides_guide_size=2
-let g:indent_guides_auto_colors = 0
-autocmd VimEnter,Colorscheme * :hi IndentGuidesEven ctermbg=0
-autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd ctermbg=8
 
 " CoC settings
 source ~/.dotfiles/vim/coc.vim
