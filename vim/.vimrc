@@ -58,7 +58,10 @@ map <Space> <Nop>
 let g:mapleader = " "
 " :PlugInstall after sourcing to install
 call plug#begin('~/.vim/plugged')
+  " Plug 'jiangmiao/auto-pairs'
+  " Plug 'ludovicchabant/vim-gutentags'
   " Plug 'nathanaelkane/vim-indent-guides'
+  " Plug 'preservim/nerdtree'
   Plug 'Xuyuanp/nerdtree-git-plugin'
   Plug 'airblade/vim-gitgutter'
   Plug 'altercation/vim-colors-solarized'
@@ -68,16 +71,14 @@ call plug#begin('~/.vim/plugged')
   Plug 'edkolev/tmuxline.vim'
   Plug 'honza/vim-snippets'
   Plug 'itchyny/lightline.vim'
-  " Plug 'jiangmiao/auto-pairs'
   Plug 'jrudess/vim-foldtext'
   Plug 'junegunn/fzf', { 'do': { -> fzf#install } }
   Plug 'junegunn/fzf.vim'
-  " Plug 'ludovicchabant/vim-gutentags'
+  Plug 'lervag/vimtex'
   Plug 'luochen1990/rainbow'
   Plug 'majutsushi/tagbar'
   Plug 'markonm/traces.vim' " :s command preview
   Plug 'neoclide/coc.nvim', {'branch': 'release'} " Intellisense features
-  " Plug 'preservim/nerdtree'
   Plug 'ryanoasis/vim-devicons'
   Plug 'tpope/vim-commentary'
   Plug 'tpope/vim-dispatch'
@@ -127,8 +128,11 @@ let g:tagbar_autopreview = 1
 let g:tagbar_sort = 0
 let g:tagbar_previewwin_pos = 'aboveleft'
 
-" Tagbar
 nnoremap <F8> :TagbarToggle<CR>
+
+" vimtex
+let g:tex_flavor = 'xelatex'
+
 
 hi Folded cterm=none
 
