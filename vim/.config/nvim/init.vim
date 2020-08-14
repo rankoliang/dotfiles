@@ -1,3 +1,5 @@
+set guicursor=
+
 set expandtab
 set relativenumber
 set number
@@ -57,6 +59,7 @@ call plug#begin()
   Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } }
   Plug 'honza/vim-snippets'
   Plug 'markonm/traces.vim' " :s command preview
+  Plug 'sheerun/vim-polyglot'
   Plug 'tpope/vim-commentary'
   Plug 'tpope/vim-surround'
   if exists('g:started_by_firenvim')
@@ -67,6 +70,7 @@ call plug#begin()
     set noshowmode
     set noruler
     set laststatus=0
+    set noundofile
     set noshowcmd
     finish
   end
@@ -74,16 +78,19 @@ call plug#begin()
   Plug 'altercation/vim-colors-solarized'
   Plug 'benmills/vimux'
   Plug 'christoomey/vim-tmux-navigator'
+  Plug 'edkolev/tmuxline.vim'
   Plug 'itchyny/lightline.vim'
   Plug 'jrudess/vim-foldtext'
   Plug 'junegunn/fzf', { 'do': { -> fzf#install } }
   Plug 'junegunn/fzf.vim'
   Plug 'luochen1990/rainbow'
   Plug 'majutsushi/tagbar'
+  Plug 'mattn/emmet-vim'
   Plug 'neoclide/coc.nvim', {'branch': 'release'} " Intellisense features
   Plug 'tpope/vim-dispatch'
   Plug 'tpope/vim-fugitive'
   Plug 'tpope/vim-obsession'
+  Plug 'tpope/vim-rails'
   Plug 'tpope/vim-repeat'
   Plug 'vim-test/vim-test'
 call plug#end()
@@ -91,6 +98,11 @@ call plug#end()
 syntax enable
 colorscheme solarized
 set background=dark
+
+let ruby_no_expensive = 1
+let ruby_operators = 1
+let ruby_pseudo_operators = 1
+
 " Tagbar
 let g:tagbar_autofocus=1
 let g:tagbar_left = 1
@@ -202,6 +214,9 @@ hi MatchParen cterm=bold ctermfg=8 ctermbg=3
 " Autopairs
 let g:AutoPairsFlyMode = 1
 let g:AutoPairsShortcutBackInsert = '<C-b>'
+
+" Emmet
+let g:user_emmet_mode = 'i'
 
 " CoC settings
 source ~/.dotfiles/vim/coc.vim

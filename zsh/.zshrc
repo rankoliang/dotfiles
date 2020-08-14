@@ -100,6 +100,8 @@ autoload -U compinit && compinit
 HISTFILE=$ZSH_CONFIG/.zsh_history
 source $ZSH_PLUGINS/history/history.zsh
 
+setopt HIST_IGNORE_DUPS
+
 # fzf from Oh My ZSH (https://github.com/ohmyzsh/ohmyzsh/blob/master/plugins/fzf/fzf.plugin.zsh)
 source $ZSH_PLUGINS/fzf/fzf.plugin.zsh
 

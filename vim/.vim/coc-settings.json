@@ -8,10 +8,11 @@
     ".projections.json"
   ],
   "diagnostic.errorSign": "✘",
-  // "diagnostic.warningSign": "•",
-  // "diagnostic.infoSign": "•",
+  "diagnostic.warningSign": "△",
+  "diagnostic.infoSign": "i",
   "diagnostic.checkCurrentLine": true,
   "snippets.priority": 200,
+  "snippets.ultisnips.enable": false,
   "solargraph.completion": true,
   "solargraph.diagnostics": true,
   "solargraph.folding": true,

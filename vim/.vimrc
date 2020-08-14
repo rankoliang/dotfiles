@@ -30,7 +30,7 @@ filetype on
 filetype indent on
 filetype plugin on
 
-set foldmethod=manual
+set foldmethod=syntax
 set foldlevelstart=1
 " Fixes jumping around with { / }
 set foldopen-=block,hor
@@ -80,10 +80,12 @@ call plug#begin('~/.vim/plugged')
   Plug 'markonm/traces.vim' " :s command preview
   Plug 'neoclide/coc.nvim', {'branch': 'release'} " Intellisense features
   Plug 'ryanoasis/vim-devicons'
+  Plug 'sheerun/vim-polyglot'
   Plug 'tpope/vim-commentary'
   Plug 'tpope/vim-dispatch'
   Plug 'tpope/vim-fugitive'
   Plug 'tpope/vim-obsession'
+  Plug 'tpope/vim-rails'
   Plug 'tpope/vim-repeat'
   Plug 'tpope/vim-surround'
   Plug 'vim-ruby/vim-ruby'
@@ -113,8 +115,10 @@ call plug#end()
 syntax enable
 colorscheme solarized
 set background=dark
+
+let g:polyglot_disabled = ['ruby']
 " vimruby
-let ruby_no_expensive = 1
+" let ruby_no_expensive = 1
 let ruby_operators = 1
 let ruby_pseudo_operators = 1
 " let ruby_fold = 1
