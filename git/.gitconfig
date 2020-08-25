@@ -6,6 +6,7 @@
 	safecrlf = true
 [alias]
 	graph = log --oneline --abbrev-commit --graph --decorate --color
+	co = checkout
 [merge]
 	tool = vimdiff
 [init]

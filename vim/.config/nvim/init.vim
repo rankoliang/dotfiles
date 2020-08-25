@@ -79,10 +79,12 @@ call plug#begin()
   Plug 'benmills/vimux'
   Plug 'christoomey/vim-tmux-navigator'
   Plug 'edkolev/tmuxline.vim'
+  Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
   Plug 'itchyny/lightline.vim'
   Plug 'jrudess/vim-foldtext'
   Plug 'junegunn/fzf', { 'do': { -> fzf#install } }
   Plug 'junegunn/fzf.vim'
+  Plug 'justinmk/vim-sneak'
   Plug 'luochen1990/rainbow'
   Plug 'majutsushi/tagbar'
   Plug 'mattn/emmet-vim'
@@ -125,14 +127,31 @@ nnoremap <Leader>vl :VimuxRunLastCommand<CR>
 " Enter the tmux pane in copy mode
 nnoremap <Leader>vi :VimuxInspectRunner<CR>
 nnoremap <Leader>vz :VimuxZoomRunner<CR>
+let g:VimuxUseNearest = 0
+let g:VimuxRunnerType = 'window'
 
 " vim-test
-let test#strategy = 'vimux'
+let test#strategy = 'neovim'
 
 nnoremap <silent> <Leader>tn :TestNearest<CR>
 nnoremap <silent> <Leader>tf :TestFile<CR>
 nnoremap <silent> <Leader>ts :TestSuite<CR>
 nnoremap <silent> <Leader>tl :TestLast<CR>
+
+function TerminalBindings()
+  if &buftype == 'terminal'
+    tnoremap <C-n> <C-\><C-N>
+    nnoremap <silent> q :bd!<CR>
+  else
+    tnoremap <C-n> <C-n>
+    nnoremap <silent> q q
+  endif
+endfunction
+
+augroup terminalgroup
+  autocmd!
+  autocmd TermEnter,TermLeave,TermClose,BufEnter * call TerminalBindings()
+augroup END
 
 " " fzf settings
 " " Mapping selecting mappings
