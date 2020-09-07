@@ -118,8 +118,13 @@ set $ws5 "5"
 set $ws6 "6"
 set $ws7 "7"
 set $ws8 "8"
-set $ws9 "9"
-set $ws10 "10"
+set $ws9 "9: Discord"
+set $ws10 "10: Music"
+
+workspace $ws1 output primary
+workspace $ws2 output primary
+workspace $ws9 output eDP-1
+workspace $ws10 output eDP-1
 
 # switch to workspace
 bindsym $mod+1 workspace number $ws1
@@ -210,3 +215,10 @@ bindsym $mod+F12 exec light -A 5 # decrease brightness
 exec_always setxkbmap -option ctrl:nocaps # Replaces capslock with ctrl
 exec_always xset r rate 200 25 # Sets the keyboard repeat rate
 exec autorandr --change # Initializes multimonitor desktop
+
+bindsym $mod+g exec sensible-browser
+
+exec discord
+exec spotify
+assign [class="discord"] $ws9
+for_window [class="Spotify"] move --no-auto-back-and-forth to workspace $ws10
