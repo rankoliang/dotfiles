@@ -207,7 +207,13 @@ bindsym $mod+F6 exec playerctl stop
 bindsym $mod+F7 exec playerctl previous
 bindsym $mod+F8 exec playerctl next
 
-bindsym $mod+o exec pacmd list-sinks | rg 'name:' | sed 's/.*name: <\(.*\)>/\1/' | dmenu | xargs pacmd set-default-sink
+# Reload load audio devices
+exec pactl load-module module-detect
+# List audio devices
+bindsym $mod+o exec ruby ~/.config/i3/scripts/select_audio.rb dmenu
+
+bindsym $mod+n workspace next
+bindsym $mod+p workspace prev
 
 # bindsym XF86MonBrightnessUp exec light -A 5
 # bindsym XF86MonBrightnessDown exec light -U 5
