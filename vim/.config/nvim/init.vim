@@ -1,6 +1,5 @@
 set guicursor=
 
-set expandtab
 set relativenumber
 set number
 
@@ -76,11 +75,13 @@ call plug#begin()
   end
   Plug 'airblade/vim-gitgutter'
   Plug 'altercation/vim-colors-solarized'
+  Plug 'alvan/vim-closetag'
   Plug 'benmills/vimux'
   Plug 'christoomey/vim-tmux-navigator'
   Plug 'edkolev/tmuxline.vim'
   Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
   Plug 'itchyny/lightline.vim'
+  Plug 'jiangmiao/auto-pairs'
   Plug 'jrudess/vim-foldtext'
   Plug 'junegunn/fzf', { 'do': { -> fzf#install } }
   Plug 'junegunn/fzf.vim'
@@ -94,6 +95,7 @@ call plug#begin()
   Plug 'tpope/vim-obsession'
   Plug 'tpope/vim-rails'
   Plug 'tpope/vim-repeat'
+  Plug 'vim-ruby/vim-ruby'
   Plug 'vim-test/vim-test'
 call plug#end()
 
@@ -231,8 +233,18 @@ let g:rainbow_conf = {
 hi MatchParen cterm=bold ctermfg=8 ctermbg=3
 
 " Autopairs
-let g:AutoPairsFlyMode = 1
-let g:AutoPairsShortcutBackInsert = '<C-b>'
+" let g:AutoPairsFlyMode = 1
+" let g:AutoPairsShortcutBackInsert = '<C-b>'
+
+let g:AutoPairsShortcutToggle = ''
+
+let g:closetag_filenames = '*.html,*.html.erb'
+
+" erb with vim-rails
+" https://stackoverflow.com/questions/4275209/how-do-i-insert-erb-tags-with-vim
+
+
+inoremap <C-CR> <CR><Up><Tab>
 
 " Emmet
 let g:user_emmet_mode = 'i'
