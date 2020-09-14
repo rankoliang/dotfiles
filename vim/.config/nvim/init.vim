@@ -123,6 +123,9 @@ hi Folded cterm=none
 " without this fix
 hi diffRemoved ctermfg=1
 
+nnoremap <Leader>gs :Git<CR>
+nnoremap <Leader>gc :Git commit<CR>
+
 " vimux
 nnoremap <Leader>vp :VimuxPromptCommand<CR>
 nnoremap <Leader>vl :VimuxRunLastCommand<CR>
@@ -242,9 +245,6 @@ let g:closetag_filenames = '*.html,*.html.erb'
 
 " erb with vim-rails
 " https://stackoverflow.com/questions/4275209/how-do-i-insert-erb-tags-with-vim
-
-
-inoremap <C-CR> <CR><Up><Tab>
 
 " Emmet
 let g:user_emmet_mode = 'i'
