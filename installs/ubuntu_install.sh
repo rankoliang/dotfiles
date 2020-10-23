@@ -5,7 +5,7 @@ apt install \
   zathura \
   keepassxc \
   steam \
-  i3 \
+  i3 \ # install i3 gaps
   arandr \
   autorandr \
   light \

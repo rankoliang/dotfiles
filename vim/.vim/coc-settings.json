@@ -1,16 +1,18 @@
 {
   "suggest.echodocSupport": true,
   "coc.preferences.colorSupport": true,
-  "coc.preferences.formatOnSaveFiletypes": ["ruby"],
+  // "coc.preferences.formatOnSaveFiletypes": ["ruby"],
+  "coc.preferences.formatOnInsertLeave": true,
   "coc.preferences.rootPatterns": [
     ".git",
     ".hg",
     ".projections.json"
   ],
-  "diagnostic.errorSign": "✘",
-  "diagnostic.warningSign": "△",
-  "diagnostic.infoSign": "i",
   "diagnostic.checkCurrentLine": true,
+  "diagnostic.errorSign": "✘",
+  "diagnostic.infoSign": "i",
+  "diagnostic.messageTarget": "echo",
+  "diagnostic.warningSign": "△",
   "snippets.priority": 200,
   "snippets.ultisnips.enable": false,
   "solargraph.completion": true,

@@ -53,6 +53,8 @@ set listchars=tab:❯·,trail:·,eol:¬
 map <Space> <Nop>
 let g:mapleader = " "
 
+nnoremap <Leader>w :w<CR>
+
 call plug#begin()
   Plug 'ap/vim-css-color'
   Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } }
@@ -95,6 +97,7 @@ call plug#begin()
   Plug 'tpope/vim-obsession'
   Plug 'tpope/vim-rails'
   Plug 'tpope/vim-repeat'
+  Plug 'turbio/bracey.vim', { 'do': 'npm install --prefix server' }
   Plug 'vim-ruby/vim-ruby'
   Plug 'vim-test/vim-test'
 call plug#end()
@@ -133,15 +136,17 @@ nnoremap <Leader>vl :VimuxRunLastCommand<CR>
 nnoremap <Leader>vi :VimuxInspectRunner<CR>
 nnoremap <Leader>vz :VimuxZoomRunner<CR>
 let g:VimuxUseNearest = 0
-let g:VimuxRunnerType = 'window'
+" let g:VimuxRunnerType = 'window'
 
 " vim-test
-let test#strategy = 'neovim'
+let test#strategy = 'dispatch'
 
 nnoremap <silent> <Leader>tn :TestNearest<CR>
 nnoremap <silent> <Leader>tf :TestFile<CR>
 nnoremap <silent> <Leader>ts :TestSuite<CR>
 nnoremap <silent> <Leader>tl :TestLast<CR>
+nnoremap <silent> <Leader>tv :TestVisit<CR>
+nnoremap <silent> <Leader>rt :Rails<CR>
 
 function TerminalBindings()
   if &buftype == 'terminal'
@@ -233,6 +238,9 @@ let g:rainbow_conf = {
 \  'ctermfgs': [9,3,4],
 \  'operators': '_,_', 
 \ }
+" \  'separately': {
+" \       'html': 0,
+" \  }
 hi MatchParen cterm=bold ctermfg=8 ctermbg=3
 
 " Autopairs
@@ -335,3 +343,5 @@ autocmd User CocStatusChange,CocDiagnosticChange call lightline#update()
 
 " disables reduntant mode display
 set noshowmode
+
+autocmd FileType * set formatoptions-=cro

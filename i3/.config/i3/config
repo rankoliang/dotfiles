@@ -11,7 +11,7 @@
 
 set $mod Mod4
 set $application_launcher dmenu
-set $locker i3lock
+set $locker i3lock --color=111111
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
@@ -202,7 +202,7 @@ bar {
 
 # power menu
 bindsym $mod+shift+x exec --no-startup-id \
-    ruby ~/.config/i3/scripts/power.rb $application_launcher $locker, mode "default"
+    ruby ~/.config/i3/scripts/power.rb $application_launcher "$locker", mode "default"
 
 # toggle laptop monitor on/off
 bindsym $mod+shift+z exec --no-startup-id \
@@ -241,7 +241,9 @@ bindsym $mod+F12 exec light -A 5 # decrease brightness
 
 exec_always setxkbmap -option ctrl:nocaps # Replaces capslock with ctrl
 exec_always xset r rate 200 25 # Sets the keyboard repeat rate
-exec autorandr --change # Initializes multimonitor desktop
+exec autorandr --change && ~/.fehbg # Initializes multimonitor desktop
+
+bindsym $mod+shift+s exec maim -s | xclip -selection clipboard -t image/png # take a screenshot
 
 bindsym $mod+g exec sensible-browser
 
@@ -252,3 +254,4 @@ for_window [class="Spotify"] move --no-auto-back-and-forth to workspace $ws10
 exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ false && $refresh_i3status
 exec redshift
 exec_always ~/.fehbg
+exec compton
