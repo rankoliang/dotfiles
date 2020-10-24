@@ -94,22 +94,9 @@ interval=10
 #interval=10
 #separator=false
 
-[wifi]
-#INTERFACE=wlp59s0
-label=
-interval=10
-
 #[bandwidth]
 ##INTERFACE=eth0
 #interval=5
-
-# Battery indicator
-#
-# The battery instance defaults to 0.
-[battery]
-# label=BAT
-label=⚡
-interval=30
 
 # Date Time
 #
