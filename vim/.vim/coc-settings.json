@@ -1,7 +1,6 @@
 {
   "suggest.echodocSupport": true,
   "coc.preferences.colorSupport": true,
-  // "coc.preferences.formatOnSaveFiletypes": ["ruby"],
   "coc.preferences.formatOnInsertLeave": true,
   "coc.preferences.rootPatterns": [
     ".git",
@@ -13,6 +12,12 @@
   "diagnostic.infoSign": "i",
   "diagnostic.messageTarget": "echo",
   "diagnostic.warningSign": "△",
+  "html.enable": true,
+  "prettier.printWidth": 120,
+  "scss.validate": true,
+  "snippets.extends": {
+    "scss": ["css"]
+  },
   "snippets.priority": 200,
   "snippets.ultisnips.enable": false,
   "solargraph.completion": true,
