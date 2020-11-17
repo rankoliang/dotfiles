@@ -55,6 +55,8 @@ let g:mapleader = " "
 
 nnoremap <Leader>w :w<CR>
 
+let g:polyglot_disabled = ['scss']
+
 call plug#begin()
   Plug 'ap/vim-css-color'
   Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } }
@@ -110,6 +112,9 @@ let ruby_no_expensive = 1
 let ruby_operators = 1
 let ruby_pseudo_operators = 1
 
+" coc-css for scss
+autocmd FileType scss setl iskeyword+=@-@
+
 " Tagbar
 let g:tagbar_autofocus=1
 let g:tagbar_left = 1
@@ -148,12 +153,12 @@ nnoremap <silent> <Leader>tl :TestLast<CR>
 nnoremap <silent> <Leader>tv :TestVisit<CR>
 nnoremap <silent> <Leader>rt :Rails<CR>
 
-function TerminalBindings()
+function! TerminalBindings()
   if &buftype == 'terminal'
-    tnoremap <C-n> <C-\><C-N>
+    tnoremap <C-i> <C-\><C-N>
     nnoremap <silent> q :bd!<CR>
   else
-    tnoremap <C-n> <C-n>
+    tnoremap <C-i> <C-i>
     nnoremap <silent> q q
   endif
 endfunction

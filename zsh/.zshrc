@@ -28,6 +28,11 @@ setopt extendedglob
 # Uncomment to turn off:
 # setopt noequals
 
+function mkcd () {
+  mkdir -p "$*"
+  cd "$*"
+}
+
 # Function to access a directory by using ~dir_name (dir_name passed as a parameter)
 # http://zsh.sourceforge.net/Intro/intro_5.html#SEC5
 namedir () { eval $1=$PWD ; : ~$1 }
@@ -35,7 +40,6 @@ namedir () { eval $1=$PWD ; : ~$1 }
 # Setup directory stack (http://zsh.sourceforge.net/Intro/intro_6.html#SEC6)
 DIRSTACKSIZE=8
 setopt autopushd pushdminus pushdsilent pushdtohome
-alias dh='dirs -v'
 
 # imports aliases
 source $DOTFILES/aliases/.aliases
@@ -83,6 +87,10 @@ export MANPAGER="sh -c 'col -bx | batcat -l man -p'"
 source $DOTFILES/nvm/nvm.sh
 source $DOTFILES/rbenv/rbenv.sh
 source $DOTFILES/pyenv/pyenv.sh
+# adds ruby to the path
+if [ -d "$HOME/.sass/" ] ; then
+  PATH="$HOME/.sass:$PATH"
+fi
 
 # Add path to exa
 path+=("$HOME/.cargo/bin")
