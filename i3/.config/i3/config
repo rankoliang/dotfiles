@@ -125,8 +125,8 @@ set $ws10 "10: Music"
 
 workspace $ws1 output primary
 workspace $ws2 output primary
-workspace $ws9 output eDP-1
-workspace $ws10 output eDP-1
+workspace $ws9 output HDMI-0
+workspace $ws10 output HDMI-0
 
 # switch to workspace
 bindsym $mod+1 workspace number $ws1
@@ -204,10 +204,6 @@ bar {
 bindsym $mod+shift+x exec --no-startup-id \
     ruby ~/.config/i3/scripts/power.rb $application_launcher "$locker", mode "default"
 
-# toggle laptop monitor on/off
-bindsym $mod+shift+z exec --no-startup-id \
-    xrandr --listactivemonitors | grep eDP-1 >/dev/null && xrandr --output eDP-1 --off || autorandr --change
-
 bindsym $mod+ctrl+$left, move workspace to output right
 bindsym $mod+ctrl+$right move workspace to output left
 
@@ -241,7 +237,6 @@ bindsym $mod+F12 exec light -A 5 # decrease brightness
 
 exec_always setxkbmap -option ctrl:nocaps # Replaces capslock with ctrl
 exec_always xset r rate 200 25 # Sets the keyboard repeat rate
-exec autorandr --change && ~/.fehbg # Initializes multimonitor desktop
 
 bindsym $mod+shift+s exec maim -s | xclip -selection clipboard -t image/png # take a screenshot
 
@@ -250,8 +245,9 @@ bindsym $mod+g exec sensible-browser
 exec discord
 exec spotify
 assign [class="discord"] $ws9
+# exec xrandr --output DP-4 --primary
+# exec ~/.screenlayout/desktop.sh
 for_window [class="Spotify"] move --no-auto-back-and-forth to workspace $ws10
-exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ false && $refresh_i3status
 exec redshift
 exec_always ~/.fehbg
 exec compton
