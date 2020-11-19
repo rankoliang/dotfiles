@@ -37,12 +37,9 @@ set foldlevelstart=1
 " Fixes jumping around with { / }
 set foldopen-=block,hor
 set foldcolumn=1
-" set foldminlines=2
 
 " Resizes split panes automatically
 autocmd VimResized * wincmd =
-
-set colorcolumn=81
 
 " Mouse mode on
 set mouse=a
@@ -78,7 +75,6 @@ call plug#begin()
     finish
   end
   Plug 'airblade/vim-gitgutter'
-  Plug 'altercation/vim-colors-solarized'
   Plug 'alvan/vim-closetag'
   Plug 'benmills/vimux'
   Plug 'christoomey/vim-tmux-navigator'
@@ -93,7 +89,9 @@ call plug#begin()
   Plug 'luochen1990/rainbow'
   Plug 'majutsushi/tagbar'
   Plug 'mattn/emmet-vim'
+  Plug 'morhetz/gruvbox'
   Plug 'neoclide/coc.nvim', {'branch': 'release'} " Intellisense features
+  Plug 'shinchu/lightline-gruvbox.vim'
   Plug 'tpope/vim-dispatch'
   Plug 'tpope/vim-fugitive'
   Plug 'tpope/vim-obsession'
@@ -104,9 +102,25 @@ call plug#begin()
   Plug 'vim-test/vim-test'
 call plug#end()
 
+" Recommended by vim-gitgutter
+set updatetime=100
+" Change stylings
+set signcolumn=yes
+let g:gruvbox_sign_column="bg0"
+
 syntax enable
-colorscheme solarized
-set background=dark
+" autocmd vimenter * ++nested colorscheme gruvbox
+colorscheme gruvbox
+
+" Sets linenumber bar
+set cursorline
+hi CursorLineNr cterm=none ctermfg=15
+" hi LineNr ctermbg=8
+
+hi GitGutterAdd ctermbg=2 ctermfg=0
+hi GitGutterChange ctermbg=3 ctermfg=0
+hi GitGutterDelete ctermbg=1 ctermfg=0
+hi GitGutterChangeDelete ctermbg=9 ctermfg=0
 
 let ruby_no_expensive = 1
 let ruby_operators = 1
@@ -126,10 +140,6 @@ let g:tagbar_previewwin_pos = 'aboveleft'
 nnoremap <F8> :TagbarToggle<CR>
 
 hi Folded cterm=none
-
-" vim-fugitive diffs are hard to read with solarized
-" without this fix
-hi diffRemoved ctermfg=1
 
 nnoremap <Leader>gs :Git<CR>
 nnoremap <Leader>gc :Git commit<CR>
@@ -222,21 +232,6 @@ command! BD call fzf#run(fzf#wrap({
   \ 'options': '--multi --reverse --bind ctrl-a:select-all+accept'
 \ }))
 
-" Sets linenumber bar
-set cursorline
-hi CursorLineNr cterm=none ctermfg=15 ctermbg=8
-hi LineNr ctermbg=8
-
-" Recommended by vim-gitgutter
-set updatetime=100
-" Change stylings
-set signcolumn=yes
-hi SignColumn ctermbg=0
-hi GitGutterAdd ctermbg=2 ctermfg=0
-hi GitGutterChange ctermbg=3 ctermfg=0
-hi GitGutterDelete ctermbg=1 ctermfg=0
-hi GitGutterChangeDelete ctermbg=9 ctermfg=0
-
 " rainbow
 let g:rainbow_active = 1
 let g:rainbow_conf = {
@@ -246,7 +241,7 @@ let g:rainbow_conf = {
 " \  'separately': {
 " \       'html': 0,
 " \  }
-hi MatchParen cterm=bold ctermfg=8 ctermbg=3
+" hi MatchParen cterm=bold ctermfg=8 ctermbg=3
 
 " Autopairs
 " let g:AutoPairsFlyMode = 1
