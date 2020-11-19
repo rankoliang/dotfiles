@@ -7,6 +7,8 @@
     ".hg",
     ".projections.json"
   ],
+  "css.completion.completePropertyWithSemicolon": true,
+  "css.validate": true,
   "diagnostic.checkCurrentLine": true,
   "diagnostic.errorSign": "✘",
   "diagnostic.infoSign": "i",
