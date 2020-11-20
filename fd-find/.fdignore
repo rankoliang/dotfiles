@@ -3,3 +3,6 @@
 **~
 !/.fdignore
 /ctags/
+/snap/
+/Downloads/**/
+/Steam/

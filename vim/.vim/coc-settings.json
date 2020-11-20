@@ -2,11 +2,7 @@
   "suggest.echodocSupport": true,
   "coc.preferences.colorSupport": true,
   "coc.preferences.formatOnInsertLeave": true,
-  "coc.preferences.rootPatterns": [
-    ".git",
-    ".hg",
-    ".projections.json"
-  ],
+  "coc.preferences.rootPatterns": [".git", ".hg", ".projections.json"],
   "css.completion.completePropertyWithSemicolon": true,
   "css.validate": true,
   "diagnostic.checkCurrentLine": true,
@@ -14,6 +10,8 @@
   "diagnostic.infoSign": "i",
   "diagnostic.messageTarget": "echo",
   "diagnostic.warningSign": "△",
+  "eslint.quiet": true,
+  "eslint.autoFixOnSave": true,
   "html.enable": true,
   "prettier.printWidth": 120,
   "scss.validate": true,

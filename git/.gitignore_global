@@ -4,3 +4,4 @@ tags
 *.tags
 .starscope.db
 Session.vim
+node_modules/
