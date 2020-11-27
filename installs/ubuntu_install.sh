@@ -71,13 +71,15 @@ cd $DOTFILES && stow -vt ~ vim tmux git zsh fd-find i3 redshift urxvt
 rm -f ~/ripgrep_*.deb
 
 # Install nvm and node
-curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.37.1/install.sh | bash && $DOTFILES/nvm.sh && nvm install 15.3.0 -v
+(curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.37.1/install.sh | bash) \
+&& source $DOTFILES/rbenv/rbenv.sh \
+&& nvm install 15.3.0 -v
 
 # rbenv dependencies
-sudo apt install gcc make libssl-dev libreadline-dev zlib1g-dev libsqlite3-dev -y
-git clone https://github.com/rbenv/rbenv.git ~/.rbenv
-bash $DOTFILES/rbenv/rbenv.sh
-mkdir -p "$(rbenv root)/plugins"
+sudo apt install gcc make libssl-dev libreadline-dev zlib1g-dev libsqlite3-dev -y \
+&& git clone https://github.com/rbenv/rbenv.git ~/.rbenv \
+&& source $DOTFILES/rbenv/rbenv.sh \
+&& mkdir -p "$(rbenv root)"/plugins \
 && git clone https://github.com/rbenv/ruby-build.git "$(rbenv root)"/plugins/ruby-build \
 && rbenv install 2.7.2 -v && rbenv global 2.7.2 # install ruby
 
