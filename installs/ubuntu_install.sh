@@ -55,6 +55,7 @@ sudo apt install \
 && make \
 && sudo make install
 
+echo "changing your shell to zsh"
 # change shell to zsh
 chsh $USER -s $(which zsh)
 
@@ -73,10 +74,10 @@ rm -f ~/ripgrep_*.deb
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.37.1/install.sh | bash && $DOTFILES/nvm.sh && nvm install 15.3.0 -v
 
 # rbenv dependencies
-sudo apt install gcc make libssl-dev libreadline-dev zlib1g-dev libsqlite3-dev -y \
-&& git clone https://github.com/rbenv/rbenv.git ~/.rbenv \
-&& $DOTFILES/rbenv/rbenv.sh \
-&& mkdir -p $(rbenv root)/plugins \
+sudo apt install gcc make libssl-dev libreadline-dev zlib1g-dev libsqlite3-dev -y
+git clone https://github.com/rbenv/rbenv.git ~/.rbenv
+bash $DOTFILES/rbenv/rbenv.sh
+mkdir -p "$(rbenv root)/plugins"
 && git clone https://github.com/rbenv/ruby-build.git "$(rbenv root)"/plugins/ruby-build \
 && rbenv install 2.7.2 -v && rbenv global 2.7.2 # install ruby
 
@@ -85,9 +86,10 @@ $DOTFILES/vim/coc-install-extensions.sh
 # Install MesloLGS font
 mkdir /tmp/p10k-fonts
 cd /tmp/p10k-fonts
-curl -O https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Regular.ttf
-curl -O https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Bold.ttf
-curl -O https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Italic.ttf
-curl -O https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Bold%20Italic.ttf
+curl -O https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Regular.ttf -o "MesloLGS NF Regular.ttf"
+curl -O https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Bold.ttf -o "MesloLGS NF Bold.ttf"
+curl -O https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Italic.ttf -o "MesloLGS NF Italic.ttf"
+curl -O https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Bold%20Italic.ttf -o "MesloLGS NF Bold Italic.ttf"
+mkdir -p ~/.local/share/fonts
 mv * ~/.local/share/fonts
 fc-cache -f -v
