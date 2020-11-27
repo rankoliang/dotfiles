@@ -168,6 +168,6 @@ hi CocErrorSign ctermbg=0 ctermfg=1
 hi CocWarningSign ctermbg=0 ctermfg=3
 hi CoCInfoSign ctermbg=0 ctermfg=10
 
-let g:coc_node_path = '$HOME/.nvm/versions/node/v15.0.1/bin/node'
+let g:coc_node_path = '$HOME/.nvm/versions/node/v15.3.0/bin/node'
 
 " Snippets

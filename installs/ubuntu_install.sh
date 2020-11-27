@@ -1,4 +1,5 @@
 git submodule update --init --recursive 
+DOTFILES=$(pwd)
 cd
 
 sudo add-apt-repository ppa:kgilmer/speed-ricer -y
@@ -23,7 +24,6 @@ sudo apt install \
   rxvt-unicode \
   fd-find \
   most \
-  cargo \
   curl \
   -y
 # Solves bug in ubuntu 20.04 where ripgrep has issues installing with batcat. 
@@ -31,7 +31,7 @@ sudo apt install \
 apt download ripgrep
 sudo dpkg --force-overwrite -i ripgrep*.deb
 
-cargo install exa
+sudo apt install cargo -y && cargo install exa
 
 # UNIVERSAL CTAGS
 # dependencies 
@@ -43,9 +43,8 @@ sudo apt install \
     libjansson-dev \
     libyaml-dev \
     libxml2-dev \
-    -y
-
-git clone https://github.com/universal-ctags/ctags.git \
+    -y \
+&& git clone https://github.com/universal-ctags/ctags.git \
 && cd ctags \
 && ./autogen.sh \
 && ./configure \
@@ -62,6 +61,29 @@ chsh $USER -s $(which zsh)
 sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
        https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
 
+# install pyenv
 curl https://pyenv.run | bash
 
-stow -vt ~ vim tmux git zsh fd-find i3 redshift
+cd $DOTFILES && stow -vt ~ vim tmux git zsh fd-find i3 redshift urxvt
+
+rm -f ~/ripgrep_*.deb
+
+# Install nvm and node
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.37.1/install.sh | bash && nvm install 15.3.0 -v
+
+# rbenv dependencies
+sudo apt install gcc make libssl-dev libreadline-dev zlib1g-dev libsqlite3-dev \
+  && git clone https://github.com/rbenv/rbenv.git ~/.rbenv \
+  && mkdir -p "$(rbenv root)"/plugins \ # install ruby-build
+  && git clone https://github.com/rbenv/ruby-build.git "$(rbenv root)"/plugins/ruby-build \
+  && rbenv install 2.7.2 -v && rbenv global 2.7.2 # install ruby
+
+# Install MesloLGS font
+mkdir /tmp/p10k-fonts
+cd /tmp/p10k-fonts
+curl -O https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Regular.ttf
+curl -O https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Bold.ttf
+curl -O https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Italic.ttf
+curl -O https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Bold%20Italic.ttf
+mv * ~/.local/share/fonts
+fc-cache -f -v
