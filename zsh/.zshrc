@@ -143,6 +143,8 @@ source $ZSH_PLUGINS/zsh-autosuggestions/zsh-autosuggestions.zsh
 
 [[ -f $DOTFILES/local/.zshrc.local ]] && source $DOTFILES/local/.zshrc.local
 
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
 # MUST BE AT THE END OF THE FILE
 # Syntax highlighting
 source $ZSH_PLUGINS/fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh

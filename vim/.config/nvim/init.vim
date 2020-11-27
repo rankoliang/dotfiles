@@ -56,24 +56,11 @@ let g:polyglot_disabled = ['scss']
 
 call plug#begin()
   Plug 'ap/vim-css-color'
-  Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } }
   Plug 'honza/vim-snippets'
   Plug 'markonm/traces.vim' " :s command preview
   Plug 'sheerun/vim-polyglot'
   Plug 'tpope/vim-commentary'
   Plug 'tpope/vim-surround'
-  if exists('g:started_by_firenvim')
-    call plug#end()
-    set background=light
-    set colorcolumn&
-    " hide statusline
-    set noshowmode
-    set noruler
-    set laststatus=0
-    set noundofile
-    set noshowcmd
-    finish
-  end
   Plug 'airblade/vim-gitgutter'
   Plug 'alvan/vim-closetag'
   Plug 'benmills/vimux'
@@ -83,7 +70,7 @@ call plug#begin()
   Plug 'itchyny/lightline.vim'
   Plug 'jiangmiao/auto-pairs'
   Plug 'jrudess/vim-foldtext'
-  Plug 'junegunn/fzf', { 'do': { -> fzf#install } }
+  Plug '~/.fzf'
   Plug 'junegunn/fzf.vim'
   Plug 'justinmk/vim-sneak'
   Plug 'luochen1990/rainbow'

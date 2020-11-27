@@ -13,7 +13,6 @@ sudo apt install \
   compton \
   curl \
   fd-find \
-  fzf \
   i3-gaps \
   i3blocks \
   most \
@@ -27,6 +26,11 @@ sudo apt install \
   zathura \
   zsh \
   -y
+
+# fzf
+git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
+~/.fzf/install --no-bash --no-fish --no-update-rc --no-key-bindings --no-completion
+
 # Solves bug in ubuntu 20.04 where ripgrep has issues installing with batcat. 
 # https://bugs.launchpad.net/ubuntu/+source/rust-bat/+bug/1868517/comments/32
 apt download ripgrep
@@ -62,12 +66,14 @@ sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.
 # install pyenv
 curl https://pyenv.run | bash
 
+mkdir -p ~/.config/nvim
+mkdir ~/.vim
 cd $DOTFILES && stow -vt ~ vim tmux git zsh fd-find i3 redshift urxvt
 
 rm -f ~/ripgrep_*.deb
 
 # Install nvm and node
-(curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.37.1/install.sh | bash) \
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.37.0/install.sh | bash \
 && source $DOTFILES/rbenv/rbenv.sh \
 && nvm install 15.3.0 -v
 
@@ -80,6 +86,7 @@ sudo apt install gcc make libssl-dev libreadline-dev zlib1g-dev libsqlite3-dev -
 && rbenv install 2.7.2 -v && rbenv global 2.7.2 # install ruby
 
 $DOTFILES/vim/coc-install-extensions.sh
+nvim --headless +PlugInstall +qall
 
 # Install MesloLGS font
 mkdir -p ~/.local/share/fonts
@@ -89,6 +96,8 @@ curl -O https://raw.githubusercontent.com/romkatv/powerlevel10k-media/master/Mes
 curl -O https://raw.githubusercontent.com/romkatv/powerlevel10k-media/master/MesloLGS%20NF%20Italic.ttf
 curl -O https://raw.githubusercontent.com/romkatv/powerlevel10k-media/master/MesloLGS%20NF%20Bold%20Italic.ttf
 fc-cache -f -v
+
+sudo snap install discord spotify
 
 echo "changing your shell to zsh"
 # change shell to zsh
