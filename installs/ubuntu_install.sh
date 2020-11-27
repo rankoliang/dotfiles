@@ -55,10 +55,6 @@ sudo apt install \
 && make \
 && sudo make install
 
-echo "changing your shell to zsh"
-# change shell to zsh
-chsh $USER -s $(which zsh)
-
 # Install vim-plug
 sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
        https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
@@ -86,12 +82,14 @@ sudo apt install gcc make libssl-dev libreadline-dev zlib1g-dev libsqlite3-dev -
 $DOTFILES/vim/coc-install-extensions.sh
 
 # Install MesloLGS font
-mkdir /tmp/p10k-fonts
-cd /tmp/p10k-fonts
-curl -O https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Regular.ttf -o "MesloLGS NF Regular.ttf"
-curl -O https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Bold.ttf -o "MesloLGS NF Bold.ttf"
-curl -O https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Italic.ttf -o "MesloLGS NF Italic.ttf"
-curl -O https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Bold%20Italic.ttf -o "MesloLGS NF Bold Italic.ttf"
 mkdir -p ~/.local/share/fonts
-mv * ~/.local/share/fonts
+cd ~/.local/share/fonts
+curl -O https://raw.githubusercontent.com/romkatv/powerlevel10k-media/master/MesloLGS%20NF%20Regular.ttf
+curl -O https://raw.githubusercontent.com/romkatv/powerlevel10k-media/master/MesloLGS%20NF%20Bold.ttf
+curl -O https://raw.githubusercontent.com/romkatv/powerlevel10k-media/master/MesloLGS%20NF%20Italic.ttf
+curl -O https://raw.githubusercontent.com/romkatv/powerlevel10k-media/master/MesloLGS%20NF%20Bold%20Italic.ttf
 fc-cache -f -v
+
+echo "changing your shell to zsh"
+# change shell to zsh
+chsh $USER -s $(which zsh)
