@@ -1,5 +1,5 @@
-cd
 git submodule update --init --recursive 
+cd
 sudo add-apt-repository ppa:kgilmer/speed-ricer
 sudo apt install \
   nvim \
