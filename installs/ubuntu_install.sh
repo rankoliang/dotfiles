@@ -70,10 +70,11 @@ curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.37.1/install.sh | bash 
 
 # rbenv dependencies
 sudo apt install gcc make libssl-dev libreadline-dev zlib1g-dev libsqlite3-dev -y \
-  && git clone https://github.com/rbenv/rbenv.git ~/.rbenv \
-  && mkdir -p "$(rbenv root)"/plugins # install ruby-build \
-  && git clone https://github.com/rbenv/ruby-build.git "$(rbenv root)"/plugins/ruby-build \
-  && rbenv install 2.7.2 -v && rbenv global 2.7.2 # install ruby
+&& git clone https://github.com/rbenv/rbenv.git ~/.rbenv \
+&& PATH="$HOME/.rbenv/bin:$PATH" \
+&& mkdir -p "$(rbenv root)"/plugins \
+&& git clone https://github.com/rbenv/ruby-build.git "$(rbenv root)"/plugins/ruby-build \
+&& rbenv install 2.7.2 -v && rbenv global 2.7.2 # install ruby
 
 # Install MesloLGS font
 mkdir /tmp/p10k-fonts
