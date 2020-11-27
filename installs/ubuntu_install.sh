@@ -64,3 +64,4 @@ sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.
 
 curl https://pyenv.run | bash
 
+stow -vt ~ vim tmux git zsh fd-find i3 redshift
