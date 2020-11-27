@@ -1,6 +1,7 @@
 git submodule update --init --recursive 
 cd
-sudo add-apt-repository ppa:kgilmer/speed-ricer
+
+sudo add-apt-repository ppa:kgilmer/speed-ricer -y
 sudo apt update
 sudo apt upgrade
 sudo apt install \
@@ -15,7 +16,6 @@ sudo apt install \
   i3-gaps \
   arandr \
   autorandr \
-  light \
   pavucontrol \
   redshift \
   i3blocks \
@@ -24,7 +24,8 @@ sudo apt install \
   fd-find \
   most \
   cargo \
-  curl
+  curl \
+  -y
 # Solves bug in ubuntu 20.04 where ripgrep has issues installing with batcat. 
 # https://bugs.launchpad.net/ubuntu/+source/rust-bat/+bug/1868517/comments/32
 apt download ripgrep
@@ -41,9 +42,10 @@ sudo apt install \
     libseccomp-dev \
     libjansson-dev \
     libyaml-dev \
-    libxml2-dev
+    libxml2-dev \
+    -y
 
-git clone git@github.com:universal-ctags/ctags.git \
+git clone https://github.com/universal-ctags/ctags.git \
 && cd ctags \
 && ./autogen.sh \
 && ./configure \
