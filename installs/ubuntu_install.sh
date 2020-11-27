@@ -1,8 +1,10 @@
 git submodule update --init --recursive 
 cd
 sudo add-apt-repository ppa:kgilmer/speed-ricer
+sudo apt update
+sudo apt upgrade
 sudo apt install \
-  nvim \
+  neovim \
   stow \
   zsh \
   tmux \
@@ -21,7 +23,8 @@ sudo apt install \
   rxvt-unicode \
   fd-find \
   most \
-  cargo
+  cargo \
+  curl
 # Solves bug in ubuntu 20.04 where ripgrep has issues installing with batcat. 
 # https://bugs.launchpad.net/ubuntu/+source/rust-bat/+bug/1868517/comments/32
 apt download ripgrep
@@ -40,12 +43,12 @@ sudo apt install \
     libyaml-dev \
     libxml2-dev
 
-git clone git@github.com:universal-ctags/ctags.git
-cd ctags
-./autogen.sh
-./configure
-make
-sudo make install
+git clone git@github.com:universal-ctags/ctags.git \
+&& cd ctags \
+&& ./autogen.sh \
+&& ./configure \
+&& make \
+&& sudo make install
 
 # change 
 sudo update-alternatives --set x-terminal-emulator $(which urxvt)
