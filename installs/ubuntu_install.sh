@@ -51,9 +51,6 @@ sudo apt install \
 && make \
 && sudo make install
 
-# change 
-sudo update-alternatives --set x-terminal-emulator $(which urxvt)
-
 # change shell to zsh
 chsh $USER -s $(which zsh)
 
@@ -72,9 +69,9 @@ rm -f ~/ripgrep_*.deb
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.37.1/install.sh | bash && nvm install 15.3.0 -v
 
 # rbenv dependencies
-sudo apt install gcc make libssl-dev libreadline-dev zlib1g-dev libsqlite3-dev \
+sudo apt install gcc make libssl-dev libreadline-dev zlib1g-dev libsqlite3-dev -y \
   && git clone https://github.com/rbenv/rbenv.git ~/.rbenv \
-  && mkdir -p "$(rbenv root)"/plugins \ # install ruby-build
+  && mkdir -p "$(rbenv root)"/plugins # install ruby-build \
   && git clone https://github.com/rbenv/ruby-build.git "$(rbenv root)"/plugins/ruby-build \
   && rbenv install 2.7.2 -v && rbenv global 2.7.2 # install ruby
 
@@ -87,3 +84,6 @@ curl -O https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%
 curl -O https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Bold%20Italic.ttf
 mv * ~/.local/share/fonts
 fc-cache -f -v
+
+# change default terminal
+sudo update-alternatives --set x-terminal-emulator $(which urxvt)
