@@ -5,6 +5,7 @@
   "coc.preferences.rootPatterns": [".git", ".hg", ".projections.json"],
   "css.completion.completePropertyWithSemicolon": true,
   "css.validate": true,
+  "css.lint.unknownAtRules": "ignore",
   "diagnostic.checkCurrentLine": true,
   "diagnostic.errorSign": "✘",
   "diagnostic.infoSign": "i",
@@ -26,5 +27,7 @@
   "solargraph.formatting": true,
   "solargraph.hover": true,
   "solargraph.rename": true,
-  "solargraph.symbols": true
+  "solargraph.symbols": true,
+  "tailwindCSS.emmetCompletions": true,
+  "tailwindCSS.headwind.runOnSave": true
 }
