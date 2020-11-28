@@ -1,0 +1,7 @@
+#!/bin/bash
+
+setxkbmap -option ctrl:nocaps
+xset r rate 200 25
+if [ -f ~/.screenlayout/display.sh ]; then
+  source ~/.screenlayout/display.sh
+fi

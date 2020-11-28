@@ -13,6 +13,7 @@ sudo apt install \
   compton \
   curl \
   fd-find \
+  fonts-inter \
   i3-gaps \
   i3blocks \
   most \
@@ -74,7 +75,7 @@ rm -f ~/ripgrep_*.deb
 
 # Install nvm and node
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.37.0/install.sh | bash \
-&& source $DOTFILES/rbenv/rbenv.sh \
+&& source $DOTFILES/nvm/nvm.sh \
 && nvm install 15.3.0 -v
 
 # rbenv dependencies
@@ -98,6 +99,12 @@ curl -O https://raw.githubusercontent.com/romkatv/powerlevel10k-media/master/Mes
 fc-cache -f -v
 
 sudo snap install discord spotify
+
+source $DOTFILES/installs/screenlayout.sh $1
+
+if [ !$1 ]; then
+  echo "Configure your monitor setup by running arandr and saving it as ~/.screenlayout/display.sh"
+fi
 
 echo "changing your shell to zsh"
 # change shell to zsh

@@ -235,9 +235,6 @@ bindsym $mod+p workspace prev
 bindsym $mod+F11 exec light -U 5 # increase brightness
 bindsym $mod+F12 exec light -A 5 # decrease brightness
 
-exec_always setxkbmap -option ctrl:nocaps # Replaces capslock with ctrl
-exec_always xset r rate 200 25 # Sets the keyboard repeat rate
-
 bindsym $mod+shift+s exec maim -s | xclip -selection clipboard -t image/png # take a screenshot
 
 bindsym $mod+g exec sensible-browser
