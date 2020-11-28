@@ -3,6 +3,7 @@ DOTFILES=$(pwd)
 cd
 
 sudo add-apt-repository ppa:kgilmer/speed-ricer -y
+sudo add-apt-repository ppa:lazygit-team/release -y
 sudo apt update
 sudo apt upgrade
 sudo apt install \
@@ -12,10 +13,12 @@ sudo apt install \
   cargo \
   compton \
   curl \
+  feh \
   fd-find \
   fonts-inter \
   i3-gaps \
   i3blocks \
+  lazygit \
   most \
   neovim \
   pavucontrol \
@@ -69,7 +72,7 @@ curl https://pyenv.run | bash
 
 mkdir -p ~/.config/nvim
 mkdir ~/.vim
-cd $DOTFILES && stow -vt ~ vim tmux git zsh fd-find i3 redshift urxvt
+cd $DOTFILES && stow -vt ~ vim tmux git zsh fd-find i3 redshift urxvt general
 
 rm -f ~/ripgrep_*.deb
 
@@ -102,9 +105,13 @@ sudo snap install discord spotify
 
 source $DOTFILES/installs/screenlayout.sh $1
 
-if [ !$1 ]; then
+if [ ! $1 ]; then
   echo "Configure your monitor setup by running arandr and saving it as ~/.screenlayout/display.sh"
 fi
+
+echo "source ~/.dotfiles/rbenv/rbenv.sh" >> ~/.profile
+
+feh --bg-fill $DOTFILES/assets/background.jpg
 
 echo "changing your shell to zsh"
 # change shell to zsh
