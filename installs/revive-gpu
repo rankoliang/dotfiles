@@ -1,0 +1,18 @@
+#!/bin/sh
+# https://askubuntu.com/questions/1273399/problems-with-chrome-browser-after-suspending-the-computer-on-ubuntu-20-04
+# ln -s ~/.dotfiles/installs/revive-gpu /lib/systemd/system-sleep/revive-gpu
+
+set -e
+
+if [ "$2" = "suspend" ] || [ "$2" = "hybrid-sleep" ]
+then
+  case "$1" in
+    pre)
+      true
+      ;;
+    post)
+      sleep 1
+      pkill -f "(chrome|spotify) --type=gpu-process"
+      ''
+  esac
+fi

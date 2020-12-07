@@ -239,11 +239,13 @@ bindsym $mod+shift+s exec maim -s | xclip -selection clipboard -t image/png # ta
 
 bindsym $mod+g exec sensible-browser
 
+exec_always setxkbmap -option ctrl:nocaps
+exec_always xset r rate 200 25
+exec_always pgrep nm-applet || nm-applet
+
 exec discord
 exec spotify
 assign [class="discord"] $ws9
-# exec xrandr --output DP-4 --primary
-# exec ~/.screenlayout/desktop.sh
 for_window [class="Spotify"] move --no-auto-back-and-forth to workspace $ws10
 exec redshift
 exec_always ~/.fehbg
