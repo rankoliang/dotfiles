@@ -73,6 +73,7 @@ call plug#begin()
   Plug '~/.fzf'
   Plug 'junegunn/fzf.vim'
   Plug 'justinmk/vim-sneak'
+  Plug 'lervag/vimtex'
   Plug 'luochen1990/rainbow'
   Plug 'majutsushi/tagbar'
   Plug 'mattn/emmet-vim'
@@ -237,12 +238,13 @@ let g:rainbow_conf = {
 let g:AutoPairsShortcutToggle = ''
 
 let g:closetag_filenames = '*.html,*.html.erb'
+let g:closetag_filetypes = 'html,xhtml,javascript,javascriptreact'
 
 " erb with vim-rails
 " https://stackoverflow.com/questions/4275209/how-do-i-insert-erb-tags-with-vim
 
 " Emmet
-let g:user_emmet_mode = 'i'
+" let g:user_emmet_mode = 'i'
 
 " CoC settings
 source ~/.dotfiles/vim/coc.vim
@@ -332,3 +334,5 @@ autocmd User CocStatusChange,CocDiagnosticChange call lightline#update()
 set noshowmode
 
 autocmd FileType * set formatoptions-=cro
+
+autocmd BufNewFile,BufRead *.xtx set filetype=tex

@@ -22,6 +22,7 @@ sudo apt install \
   most \
   neovim \
   pavucontrol \
+  playerctl \
   redshift \
   rxvt-unicode \
   steam \
